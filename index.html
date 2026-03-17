@@ -4,6 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        if (location.protocol !== 'https:' && location.hostname !== 'localhost' && location.hostname !== '127.0.0.1') {
+            location.replace(`https:${location.href.substring(location.protocol.length)}`);
+        }
+    </script>
     <title>DinePro Advisors | Elite Restaurant Consulting</title>
     <meta name="description"
         content="Premium restaurant consulting and advisory services. Elevate your hospitality business with DinePro Advisors.">
