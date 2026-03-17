@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | DinePro Advisors</title>
+    <meta name="description"
+        content="Get in touch with DinePro Advisors for expert restaurant consulting and advisory services.">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="logo.png.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="canonical" href="https://dineproadvisors.online/contact.html">
+</head>
+
+<body class="contact-page">
+    <!-- Premium Preloader -->
+    <div id="preloader">
+        <div class="loader-content">
+            <div class="loader-logo">
+                <img src="logo.png.png" alt="DinePro Logo">
+            </div>
+            <div class="loader-spinner"></div>
+            <div class="loader-text">CONTACT US</div>
+        </div>
+    </div>
+
+
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="container border-bottom-glass">
+            <div class="contact-info">
+                <span><i class="fas fa-phone"></i> +94 76 258 3670</span>
+                <span><i class="fas fa-envelope"></i> udaradon@yahoo.com</span>
+            </div>
+            <div class="top-right">
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+                <div class="lang-selector">
+                    <img src="https://flagcdn.com/w20/gb.png" alt="English">
+                    <span>English</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <div class="logo-icon">
+                    <img src="logo.png.png" alt="DinePro Advisors Logo">
+                </div>
+                <div class="logo-text">
+                    <span class="main">DINEPRO ADVISORS</span>
+                    <span class="sub">ELITE RESTAURANT CONSULTING</span>
+                </div>
+            </div>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="index.html">HOME</a></li>
+                    <li><a href="index.html#about">ABOUT</a></li>
+                    <li class="dropdown">
+                        <a href="index.html#services">SERVICES <i class="fas fa-chevron-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="index.html#services">Restaurant Startup</a></li>
+                            <li><a href="index.html#services">Menu Engineering</a></li>
+                            <li><a href="index.html#services">Operations Review</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="index.html#booking">BOOKING</a></li>
+                    <li><a href="contact.html" class="active">CONTACT US</a></li>
+                </ul>
+                <div class="mobile-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header"
+        style="background-image: linear-gradient(rgba(10, 14, 23, 0.4), rgba(10, 14, 23, 0.6)), url('contact-bg-new.jpg');">
+        <div class="container">
+            <h1>Contact Us</h1>
+            <div class="breadcrumb">
+                <a href="index.html">Home</a> <i class="fas fa-chevron-right"></i> <span>Contact</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section section-padding">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tagline">GET IN TOUCH</span>
+                <h2>Feel Free To Drop Us A Message</h2>
+                <div class="divider"></div>
+            </div>
+
+            <div class="contact-grid">
+                <!-- Info Cards -->
+                <div class="contact-info-cards">
+                    <div class="info-card">
+                        <div class="info-icon"><i class="fas fa-map-marker-alt"></i></div>
+                        <div class="info-text">
+                            <p>648/5, Nugadeniya road,<br>Pelawatta,<br>Battaramulla, Sri Lanka</p>
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-icon"><i class="fas fa-envelope"></i></div>
+                        <div class="info-text">
+                            <p>udaradon@yahoo.com</p>
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-icon"><i class="fas fa-phone"></i></div>
+                        <div class="info-text">
+                            <p>+94 76 258 3670 <br><small>(WhatsApp Available)</small></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-form-side">
+                    <div class="form-toggle-wrapper">
+                        <button class="toggle-form-btn" onclick="toggleForm('contactCollapsible', this)">
+                            <i class="fas fa-envelope-open-text"></i> Send Us a Message
+                        </button>
+                    </div>
+
+                    <!-- Contact Form -->
+                    <div class="contact-form-container form-collapsible" id="contactCollapsible">
+                        <form action="https://formsubmit.co/udaradon@yahoo.com" method="POST" id="contactForm"
+                            class="futuristic-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <input type="text" name="name" placeholder="Name" required>
+                                </div>
+                            </div>
+                            <div class="form-row half-grid">
+                                <div class="form-group">
+                                    <input type="email" name="email" placeholder="Email" required>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" name="phone" placeholder="Phone">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <input type="text" name="subject" placeholder="Subject">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <textarea name="message" rows="6" placeholder="Message" required></textarea>
+                                </div>
+                            </div>
+                            <div class="form-submit">
+                                <button type="submit" class="btn btn-primary submit-btn">SUBMIT NOW</button>
+                            </div>
+                            <div id="contactSuccessMessage"
+                                style="display:none; color: #A6790A; margin-top: 20px; text-align: center; font-weight: 700; background: rgba(166, 121, 10, 0.1); padding: 15px; border-radius: 12px; border: 1px solid rgba(166, 121, 10, 0.2);">
+                                <i class="fas fa-check-circle" style="margin-right: 8px;"></i> Your message has been
+                                sent
+                                successfully!
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Detailed Footer -->
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-col about-col">
+                <h3>ABOUT US</h3>
+                <div class="footer-divider"></div>
+                <p>Strategic restaurant consulting designed to help hospitality businesses grow, optimize operations,
+                    and maximize profitability through expert guidance and industry insight.</p>
+                <div class="footer-social">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-google-plus-g"></i></a>
+                </div>
+            </div>
+            <div class="footer-col links-col">
+                <h3>QUICK LINKS</h3>
+                <div class="footer-divider"></div>
+                <ul class="footer-links">
+                    <li><a href="index.html#home">- HOME</a></li>
+                    <li><a href="index.html#about">- ABOUT</a></li>
+                    <li><a href="index.html#services">- SERVICES</a></li>
+                    <li><a href="contact.html">- CONTACT US</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <p>&copy; 2026 DinePro Advisors. <span style="cursor: default;">All Rights Reserved.</span> |
+                    Designed By <a href="https://69studiobysubash.online/" target="_blank"
+                        style="color: var(--accent-color); text-decoration: none; font-weight: 600;">69 Studio by
+                        Subhash</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Chat Widget -->
+    <div class="chat-widget">
+        <div class="chat-window" id="chatWindow">
+            <div class="chat-header">
+                <button class="close-chat" id="closeChat">&times;</button>
+                <div class="header-content">
+                    <p>Need help? Search our help center for answers or start a conversation:</p>
+                </div>
+            </div>
+            <div class="chat-body">
+                <!-- Home View (default) -->
+                <div id="chatHome">
+                    <div class="chat-card help-center-card">
+                        <h4>Help Center</h4>
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="helpSearch" placeholder="Search for answers">
+                        </div>
+                        <div class="search-results" id="searchResults"></div>
+                    </div>
+                    <div class="chat-card conversation-card" id="startChat">
+                        <div class="card-left">
+                            <h4>New Conversation</h4>
+                            <p>Assistant is online</p>
+                        </div>
+                        <div class="card-right">
+                            <i class="far fa-paper-plane"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chat View (initially hidden) -->
+                <div id="chatMessagesView" style="display: none;">
+                    <div class="messages-container" id="messagesContainer">
+                        <!-- Messages will appear here -->
+                    </div>
+                    <div class="message-input-area">
+                        <input type="text" id="chatInput" placeholder="Type a message...">
+                        <button id="sendMessage"><i class="fas fa-paper-plane"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="chat-footer">
+                <div class="footer-icons">
+                    <i class="fas fa-home active" id="goHome"></i>
+                    <i class="far fa-comment-alt" id="goChat"></i>
+                </div>
+                <div class="powered-by">
+                    <img src="https://flagcdn.com/w40/lk.png" alt="Icon" style="width: 35px; margin-right: 8px;">
+                    Powered by <a href="https://69studiobysubash.online/" target="_blank"
+                        style="color: inherit; text-decoration: none; margin-left: 3px; font-weight: 600;">69 Studio by
+                        Subhash</a>
+                </div>
+            </div>
+        </div>
+        <div class="chat-toggle" id="chatToggle">
+            <div class="chat-bubble">
+                <i class="fas fa-comment-dots"></i>
+                <span class="badge">1</span>
+            </div>
+            <div class="chat-label">Online</div>
+        </div>
+    </div>
+
+    <script type="module" src="firebase-init.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
