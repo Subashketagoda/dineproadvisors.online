@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Chat | DinePro Advisors</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="logo.png.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="canonical" href="https://dineproadvisors.online/staff-chat.html">
+    <style>
+        :root {
+            /* Standard Colors (Premium Dark Mode Default) */
+            --admin-bg: #0f172a;
+            --admin-card: rgba(15, 23, 42, 0.6);
+            --admin-accent: #D4AF37;
+            --admin-accent-bright: #D4AF37;
+            --glass: rgba(30, 41, 59, 0.45);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        body.light-mode {
+            /* Light Mode */
+            --admin-bg: #F8F4F0;
+            --admin-card: #ffffff;
+            --admin-accent: #5D3A1A;
+            --admin-accent-bright: #A6790A;
+            --glass: rgba(255, 255, 255, 0.95);
+            --glass-border: rgba(166, 121, 10, 0.15);
+            --text-main: #2D1B0D;
+            --text-muted: #5D3A1A;
+        }
+
+        body.chat-mode {
+            background-color: var(--admin-bg);
+            background-image: linear-gradient(rgba(15, 23, 42, 0.05), rgba(15, 23, 42, 0.1)), url('hero2.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: var(--text-main);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            font-family: 'Outfit', sans-serif;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        body.chat-mode.light-mode {
+            background-image: linear-gradient(rgba(15, 23, 42, 0.05), rgba(15, 23, 42, 0.1)), url('hero2.jpg');
+        }
+
+        .chat-container {
+            max-width: 1000px;
+            width: 95%;
+            height: 85vh;
+            margin: auto;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 30px;
+            border: 1px solid var(--glass-border);
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 50px 100px rgba(0, 0, 0, 0.5);
+            animation: slideIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(0.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .chat-header {
+            padding: 25px 35px;
+            border-bottom: 1px solid var(--glass-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .chat-header h1 {
+            font-size: 24px;
+            font-weight: 800;
+            background: linear-gradient(to right, var(--text-main), var(--admin-accent-bright));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .chat-messages {
+            flex-grow: 1;
+            padding: 30px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            scroll-behavior: smooth;
+        }
+
+        .chat-messages::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .chat-messages::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        .message {
+            max-width: 70%;
+            padding: 15px 20px;
+            border-radius: 20px;
+            position: relative;
+            animation: fadeInMsg 0.4s ease;
+        }
+
+        @keyframes fadeInMsg {
+            from {
+                opacity: 0;
+                transform: translateX(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .message.received {
+            align-self: flex-start;
+            background: var(--admin-card);
+            border: 1px solid var(--glass-border);
+            border-bottom-left-radius: 5px;
+            color: var(--text-main);
+        }
+
+        .message.sent {
+            align-self: flex-end;
+            background: linear-gradient(135deg, var(--admin-accent), var(--admin-accent-bright));
+            color: white;
+            border-bottom-right-radius: 5px;
+            box-shadow: 0 10px 20px rgba(166, 121, 10, 0.2);
+        }
+
+        .message-info {
+            font-size: 11px;
+            margin-bottom: 5px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.7;
+        }
+
+        .message-time {
+            font-size: 10px;
+            margin-top: 5px;
+            text-align: right;
+            opacity: 0.5;
+        }
+
+        .chat-input-area {
+            padding: 25px 35px;
+            background: rgba(0, 0, 0, 0.1);
+            border-top: 1px solid var(--glass-border);
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .chat-input {
+            flex-grow: 1;
+            background: var(--admin-card);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            padding: 15px 20px;
+            color: var(--text-main);
+            font-family: inherit;
+            font-size: 15px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .chat-input:focus {
+            background: var(--admin-card);
+            border-color: var(--admin-accent-bright);
+            box-shadow: 0 0 15px rgba(166, 121, 10, 0.1);
+        }
+
+        .send-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 15px;
+            background: var(--admin-accent);
+            border: none;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+            transition: 0.3s;
+            box-shadow: 0 10px 20px rgba(166, 121, 10, 0.2);
+        }
+
+        .send-btn:hover {
+            transform: scale(1.05) translateY(-2px);
+            background: #BF8C12;
+            box-shadow: 0 15px 30px rgba(166, 121, 10, 0.3);
+        }
+
+        .back-btn {
+            background: var(--admin-card);
+            border: 1px solid var(--glass-border);
+            color: var(--text-main);
+            padding: 10px 20px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: #fff;
+        }
+
+        #name-gate {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--admin-bg);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            transition: background 0.4s ease;
+        }
+
+        .name-card {
+            background: var(--glass);
+            padding: 50px;
+            border-radius: 30px;
+            border: 1px solid var(--glass-border);
+            text-align: center;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .name-card h2 {
+            margin-bottom: 25px;
+            font-weight: 800;
+        }
+
+        .name-card input,
+        .name-card select {
+            width: 100%;
+            padding: 15px;
+            background: var(--admin-card);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            color: var(--text-main);
+            text-align: center;
+            font-size: 16px;
+            margin-bottom: 20px;
+            outline: none;
+        }
+
+        .name-card select {
+            appearance: none;
+            cursor: pointer;
+            text-align-last: center;
+        }
+
+        .name-card select option {
+            background: var(--admin-bg);
+            color: #fff;
+        }
+
+        @media (max-width: 768px) {
+            .chat-container {
+                width: 100%;
+                height: 100vh;
+                border-radius: 0;
+                margin: 0;
+            }
+
+            .chat-header {
+                padding: 15px 20px;
+            }
+
+            .chat-header h1 {
+                font-size: 18px;
+            }
+
+            .chat-messages {
+                padding: 15px;
+            }
+
+            .message {
+                max-width: 85%;
+            }
+
+            .chat-input-area {
+                padding: 15px 20px;
+            }
+
+            .name-card {
+                padding: 30px 20px;
+                margin: 15px;
+                border-radius: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body class="chat-mode">
+
+    <div id="name-gate">
+        <div class="name-card">
+            <h2>Staff Portal</h2>
+            <p style="color: #94a3b8; margin-bottom: 20px;">Access your team's discussion room</p>
+
+            <input type="text" id="staff-name" placeholder="Enter Your Name" autofocus>
+
+            <select id="chat-level">
+                <option value="level1">Level 1 - General Staff</option>
+                <option value="level2">Level 2 - Management</option>
+                <option value="level3">Level 3 - Executive Board</option>
+            </select>
+
+            <input type="password" id="staff-pass" placeholder="Access Code">
+
+            <button class="send-btn" style="width: 100%; border-radius: 15px; height: 55px; font-weight: 700;"
+                onclick="joinChat()">Enter Protected Room</button>
+            <p id="auth-error" style="color: #ef4444; font-size: 12px; margin-top: 15px; display: none;">Invalid access
+                code for this level.</p>
+        </div>
+    </div>
+
+    <div class="chat-container">
+        <div class="chat-header">
+            <h1><i class="fas fa-shield-alt"></i> <span id="room-name">Staff Chat</span></h1>
+            <div style="display: flex; gap: 15px; align-items: center;">
+                <div style="text-align: right;">
+                    <div id="display-name" style="font-size: 14px; font-weight: 700; color: var(--text-main);"></div>
+                    <div id="display-level"
+                        style="font-size: 10px; color: var(--admin-accent); font-weight: 800; text-transform: uppercase;">
+                    </div>
+                </div>
+                <button onclick="location.reload()" class="back-btn" style="padding: 8px 15px; font-size: 12px;"><i
+                        class="fas fa-sign-out-alt"></i> Exit</button>
+            </div>
+        </div>
+
+        <div class="chat-messages" id="chat-messages">
+            <!-- Messages injected here -->
+        </div>
+
+        <div class="chat-input-area">
+            <input type="text" id="message-input" class="chat-input" placeholder="Type your message here...">
+            <button class="send-btn" id="send-btn" onclick="sendMessage()">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
+
+    <script type="module" src="firebase-init.js"></script>
+    <script>
+        let currentUser = "";
+        let currentLevel = "level1";
+
+        // Mode Sync Logic
+        (function () {
+            const savedMode = localStorage.getItem('staff_mode') || 'dark';
+            if (savedMode === 'light') {
+                document.body.classList.add('light-mode');
+            }
+        })();
+
+        // Room Configurations
+        const ROOMS = {
+            level1: { name: "General Discussion", color: "#94a3b8", pass: "1234" },
+            level2: { name: "Management Tactical", color: "#2563eb", pass: "5678" },
+            level3: { name: "Executive Strategic", color: "#ef4444", pass: "9999" }
+        };
+
+        function joinChat() {
+            const name = document.getElementById('staff-name').value.trim();
+            const level = document.getElementById('chat-level').value;
+            const pass = document.getElementById('staff-pass').value;
+            const errorEl = document.getElementById('auth-error');
+
+            if (!name) return;
+
+            // Password Check
+            if (pass !== ROOMS[level].pass) {
+                errorEl.style.display = 'block';
+                return;
+            }
+
+            currentUser = name;
+            currentLevel = level;
+
+            document.getElementById('display-name').innerText = name;
+            document.getElementById('display-level').innerText = ROOMS[level].name;
+            document.getElementById('room-name').innerText = ROOMS[level].name;
+            document.getElementById('name-gate').style.display = 'none';
+
+            initChatSync();
+        }
+
+        function initChatSync() {
+            if (typeof window.firebaseDB === 'undefined') {
+                window.addEventListener('firebaseLoaded', initChatSync);
+                return;
+            }
+
+            const chatRef = window.firebaseRef(window.firebaseDB, `dinepro/chat/${currentLevel}`);
+            window.firebaseOnValue(chatRef, (snapshot) => {
+                const data = snapshot.val();
+                const container = document.getElementById('chat-messages');
+                container.innerHTML = '';
+
+                if (data) {
+                    Object.values(data).forEach(msg => {
+                        const msgDiv = document.createElement('div');
+                        const isSent = msg.user === currentUser;
+                        msgDiv.className = `message ${isSent ? 'sent' : 'received'}`;
+
+                        const time = new Date(msg.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+                        msgDiv.innerHTML = `
+                            ${!isSent ? `<div class="message-info">${msg.user}</div>` : ''}
+                            <div class="message-body">${msg.text}</div>
+                            <div class="message-time">${time}</div>
+                        `;
+                        container.appendChild(msgDiv);
+                    });
+                    container.scrollTop = container.scrollHeight;
+                }
+            });
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('message-input');
+            const text = input.value.trim();
+
+            if (text && window.firebaseDB) {
+                const chatRef = window.firebaseRef(window.firebaseDB, `dinepro/chat/${currentLevel}`);
+                window.firebasePush(chatRef, {
+                    user: currentUser,
+                    text: text,
+                    timestamp: Date.now()
+                });
+                input.value = '';
+            }
+        }
+
+        // Enter key to send
+        document.getElementById('message-input').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') sendMessage();
+        });
+    </script>
+</body>
+
+</html>

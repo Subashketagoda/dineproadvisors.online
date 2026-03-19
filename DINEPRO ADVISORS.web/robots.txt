@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /admin.html
+Disallow: /staff-portal.html
+Disallow: /staff-chat.html
+
+Sitemap: https://dineproadvisors.online/sitemap.xml

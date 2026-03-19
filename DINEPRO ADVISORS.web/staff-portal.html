@@ -1,0 +1,1507 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Portal | DinePro Advisors</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="logo.png.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="canonical" href="https://dineproadvisors.online/staff-portal.html">
+    <link rel="apple-touch-icon" href="app-logo.jpg">
+    <link rel="manifest" href="manifest-staff.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Staff Portal">
+    <style>
+        :root {
+            /* Standard Colors (Premium Dark Mode Default) */
+            --admin-bg: #020617;
+            --admin-card: rgba(15, 23, 42, 0.85);
+            --admin-accent: #A6790A;
+            --admin-accent-bright: #D4AF37;
+            --glass: rgba(10, 14, 23, 0.8);
+            --glass-border: rgba(255, 255, 255, 0.12);
+            --success: #10b981;
+            --danger: #ef4444;
+            --text-main: #f8fafc;
+            --text-muted: #cbd5e1;
+            --sidebar-width: 280px;
+            --sidebar-bg: rgba(10, 14, 23, 0.95);
+            --nav-item-bg: transparent;
+            --nav-item-text: #cbd5e1;
+            --nav-item-active-bg: rgba(166, 121, 10, 0.2);
+            --nav-item-active-text: #D4AF37;
+            --card-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+            --bg-base: #020617;
+            --input-bg: rgba(255, 255, 255, 0.05);
+            --input-text: #ffffff;
+        }
+
+        body.light-mode {
+            /* Light Mode Variables */
+            --admin-bg: #f8fafc;
+            --admin-card: #ffffff;
+            --admin-accent: #5D3A1A;
+            --admin-accent-bright: #8B5E3C;
+            --glass: rgba(255, 255, 255, 0.9);
+            --glass-border: rgba(93, 58, 26, 0.15);
+            --success: #10b981;
+            --danger: #ef4444;
+            --text-main: #231206;
+            --text-muted: #64748b;
+            --sidebar-bg: #ffffff;
+            --nav-item-bg: transparent;
+            --nav-item-text: #475569;
+            --nav-item-active-bg: rgba(93, 58, 26, 0.1);
+            --nav-item-active-text: #5D3A1A;
+            --card-shadow: 0 10px 40px rgba(93, 58, 26, 0.08);
+            --bg-base: #f8fafc;
+            --input-bg: #f1f5f9;
+            --input-text: #231206;
+        }
+
+        body.portal-mode {
+            background-color: var(--admin-bg);
+            transition: background-color 0.4s ease, color 0.4s ease;
+            background-image: none;
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            font-family: 'Outfit', sans-serif;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        body.portal-mode:not(.light-mode) {
+            background-image:
+                radial-gradient(circle at top right, rgba(166, 121, 10, 0.15), transparent 600px),
+                radial-gradient(circle at bottom left, rgba(166, 121, 10, 0.1), transparent 600px);
+        }
+
+
+
+        .portal-layout {
+            display: grid;
+            grid-template-columns: var(--sidebar-width) 1fr;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Sidebar Styling */
+        .portal-sidebar {
+            background: var(--sidebar-bg);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border-right: 1px solid var(--glass-border);
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            transition: transform 0.4s ease, background 0.4s ease;
+            z-index: 1001;
+        }
+
+        .nav-item {
+            padding: 14px 20px;
+            border-radius: 16px;
+            color: var(--nav-item-text);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        .nav-item:hover {
+            color: var(--admin-accent);
+            background: rgba(166, 121, 10, 0.05);
+            transform: translateX(5px);
+        }
+
+        .nav-item.active {
+            background: var(--nav-item-active-bg);
+            color: var(--nav-item-active-text);
+            box-shadow: 0 4px 15px rgba(166, 121, 10, 0.1);
+        }
+
+        /* Mode Toggle Switch */
+        .mode-toggle-container {
+            padding: 0 10px;
+            margin-bottom: 20px;
+        }
+
+        .mode-toggle-btn {
+            width: 100%;
+            padding: 12px;
+            border-radius: 14px;
+            border: 1px solid var(--glass-border);
+            background: var(--nav-item-active-bg);
+            color: var(--admin-accent);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: 0.3s;
+        }
+
+        .mode-toggle-btn:hover {
+            background: var(--admin-accent);
+            color: white;
+        }
+
+        .portal-main {
+            overflow-y: auto;
+            padding: 40px;
+            background: transparent;
+        }
+
+        .section-card {
+            background: var(--admin-card);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 35px;
+            border-radius: 35px;
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--card-shadow);
+            transition: background 0.4s ease;
+        }
+
+
+        .sidebar-logo {
+            text-align: center;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .sidebar-logo img {
+            width: 90px;
+            margin-bottom: 10px;
+            filter: drop-shadow(0 0 15px rgba(166, 121, 10, 0.4));
+        }
+
+        .sidebar-nav {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .nav-item {
+            padding: 16px 24px;
+            border-radius: 18px;
+            color: var(--nav-item-text);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            font-weight: 800;
+            font-size: 16px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            border: 1px solid transparent;
+            margin-bottom: 8px;
+        }
+
+        .nav-item i {
+            width: 24px;
+            text-align: center;
+            font-size: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        /* Stats/Dashboard */
+        .nav-item:nth-child(3) i {
+            color: #f59e0b;
+        }
+
+        /* Daily Report - Yellow/Orange in image */
+        .nav-item:nth-child(4) i {
+            color: #f59e0b;
+        }
+
+        /* Team Chat - Purple in image */
+        .nav-item:nth-child(5) i {
+            color: #8b5cf6;
+        }
+
+        /* Admin DM - Blue */
+        .nav-item:nth-child(6) i {
+            color: #3b82f6;
+        }
+
+        .nav-item.active i {
+            color: white !important;
+            transform: scale(1.1);
+        }
+
+        .nav-item:hover {
+            background: var(--nav-item-active-bg);
+            color: var(--nav-item-active-text);
+            transform: translateX(5px);
+        }
+
+        .nav-item.active {
+            background: linear-gradient(135deg, var(--admin-accent), var(--admin-accent-bright));
+            color: white !important;
+            box-shadow: 0 10px 25px rgba(93, 58, 26, 0.2);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Main Content Viewport */
+        .portal-main {
+            padding: 50px;
+            overflow-y: auto;
+            position: relative;
+            background: transparent;
+            scroll-behavior: smooth;
+        }
+
+        /* Global Override for background */
+        .global-bg-anim {
+            background: var(--bg-base) !important;
+        }
+
+
+        .content-section {
+            display: none;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .content-section.active {
+            display: block;
+            animation: sectionIn 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        @keyframes sectionIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+                filter: blur(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+                filter: blur(0);
+            }
+        }
+
+        /* Reusable UI Components */
+        .card {
+            background: var(--admin-card);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 30px;
+            padding: 35px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            margin-bottom: 30px;
+        }
+
+        .card:hover {
+            border-color: rgba(166, 121, 10, 0.3);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+        }
+
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .toggle-btn {
+            padding: 14px 30px;
+            border-radius: 50px;
+            border: none;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: white;
+            font-size: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .toggle-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .toggle-btn:active {
+            transform: scale(0.95);
+        }
+
+        .btn-on {
+            background: linear-gradient(135deg, #10B981, #059669);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-off {
+            background: linear-gradient(135deg, #EF4444, #DC2626);
+            box-shadow: 0 8px 25px rgba(239, 68, 68, 0.3);
+        }
+
+        .btn-accent {
+            background: linear-gradient(135deg, #A6790A, #D4AF37) !important;
+            color: white !important;
+            box-shadow: 0 8px 25px rgba(166, 121, 10, 0.4);
+        }
+
+        /* Typography & Resets */
+        h1,
+        h2,
+        h3 {
+            margin: 0 0 20px 0;
+            color: var(--text-main);
+        }
+
+        .text-muted {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        button {
+            border: none;
+            background: none;
+            color: inherit;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        /* Form Controls */
+        .portal-form textarea,
+        .portal-form input,
+        .gate-card input,
+        .gate-card select,
+        .chat-input,
+        #portal-chat-input,
+        #admin-pchat-input {
+            background: var(--input-bg) !important;
+            border: 1px solid var(--glass-border) !important;
+            border-radius: 18px;
+            padding: 16px 20px;
+            color: var(--input-text) !important;
+            outline: none;
+            width: 100%;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+            font-family: 'Outfit', sans-serif;
+            font-size: 15px;
+            appearance: none;
+            -webkit-appearance: none;
+        }
+
+        .portal-form textarea:focus,
+        .portal-form input:focus,
+        .gate-card input:focus,
+        .gate-card select:focus,
+        .chat-input:focus,
+        #portal-chat-input:focus,
+        #admin-pchat-input:focus {
+            border-color: var(--admin-accent-bright) !important;
+            background: var(--admin-card) !important;
+            box-shadow: 0 0 20px rgba(166, 121, 10, 0.2);
+        }
+
+        ::placeholder {
+            color: var(--text-muted);
+            opacity: 0.8;
+        }
+
+        /* Chat System */
+        .chat-frame {
+            height: clamp(500px, 75vh, 900px);
+            display: flex;
+            flex-direction: column;
+            background: var(--admin-card);
+            border-radius: 35px;
+            border: 1px solid var(--glass-border);
+            overflow: hidden;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4);
+        }
+
+        .chat-msgs-area {
+            flex-grow: 1;
+            padding: 30px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            background-image:
+                radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+
+        .msg-bubble {
+            max-width: 80%;
+            padding: 14px 22px;
+            border-radius: 22px;
+            font-size: 15px;
+            line-height: 1.6;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            animation: msgIn 0.3s ease-out;
+        }
+
+        @keyframes msgIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px) scale(0.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .msg-bubble.sent {
+            align-self: flex-end;
+            background: linear-gradient(135deg, var(--admin-accent), #BF8C12);
+            color: white;
+            border-bottom-right-radius: 4px;
+        }
+
+        .msg-bubble.received {
+            align-self: flex-start;
+            background: var(--admin-bg);
+            border: 1px solid var(--glass-border);
+            border-top-left-radius: 4px;
+            color: var(--text-main);
+        }
+
+
+        .chat-input-row {
+            padding: 20px 25px;
+            background: rgba(0, 0, 0, 0.25);
+            border-top: 1px solid var(--glass-border);
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .send-btn {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--admin-accent), #BF8C12);
+            border: none;
+            border-radius: 15px;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            transition: 0.3s;
+            flex-shrink: 0;
+            box-shadow: 0 5px 15px rgba(166, 121, 10, 0.3);
+        }
+
+        /* Login Gate Enhancement */
+        #portal-gate {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-base);
+            z-index: 2005;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            transition: background 0.4s ease;
+        }
+
+
+        .gate-bg-anim {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .gate-orb {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(166, 121, 10, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            filter: blur(50px);
+            animation: orbFloat 20s infinite alternate cubic-bezier(0.445, 0.05, 0.55, 0.95);
+        }
+
+        .gate-orb:nth-child(1) {
+            top: -100px;
+            left: -100px;
+            animation-duration: 25s;
+        }
+
+        .gate-orb:nth-child(2) {
+            bottom: -150px;
+            right: -100px;
+            animation-duration: 30s;
+            background: radial-gradient(circle, rgba(166, 121, 10, 0.1) 0%, transparent 70%);
+        }
+
+        .gate-orb:nth-child(3) {
+            top: 20%;
+            right: 10%;
+            animation-duration: 22s;
+            width: 300px;
+            height: 300px;
+        }
+
+        @keyframes orbFloat {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            100% {
+                transform: translate(100px, 50px) scale(1.2);
+            }
+        }
+
+        .gate-card {
+            background: var(--admin-card);
+            backdrop-filter: blur(40px) saturate(180%);
+            -webkit-backdrop-filter: blur(40px) saturate(180%);
+            padding: 60px 45px;
+            border-radius: 40px;
+            border: 1px solid var(--glass-border);
+            width: 90%;
+            max-width: 440px;
+            text-align: center;
+            box-shadow: var(--card-shadow);
+            animation: gateIn 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+            position: relative;
+        }
+
+
+        .gate-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(135deg, rgba(166, 121, 10, 0.3), transparent 40%, transparent 60%, rgba(166, 121, 10,
+                        0.2));
+            z-index: -1;
+            border-radius: 42px;
+            opacity: 0.5;
+        }
+
+        @keyframes gateIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95) translateY(20px);
+                filter: blur(5px);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+                filter: blur(0);
+            }
+        }
+
+        /* Responsive Mobile Architecture */
+        @media (max-width: 1024px) {
+            .portal-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .portal-sidebar {
+                position: fixed;
+                left: calc(-1 * var(--sidebar-width));
+                top: 0;
+                width: var(--sidebar-width);
+                height: 100vh;
+                background: var(--sidebar-bg);
+                box-shadow: 25px 0 60px rgba(0, 0, 0, 0.1);
+                padding: 50px 25px;
+                z-index: 1001;
+                transition: transform 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+            }
+
+            .portal-sidebar.active {
+                transform: translateX(var(--sidebar-width));
+            }
+
+            .portal-main {
+                padding: 110px 20px 40px;
+            }
+
+            .mobile-portal-toggle {
+                display: none !important;
+                position: fixed;
+                top: 25px;
+                right: 25px;
+                z-index: 1002;
+                background: linear-gradient(135deg, var(--admin-accent), #BF8C12);
+                color: white;
+                width: 55px;
+                height: 55px;
+                border-radius: 18px;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                box-shadow: 0 10px 30px rgba(166, 121, 10, 0.3);
+                font-size: 22px;
+                transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            }
+
+            .mobile-portal-toggle:active {
+                transform: scale(0.9);
+            }
+
+            body.logged-in .mobile-portal-toggle {
+                display: flex !important;
+            }
+
+            .status-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .card {
+                padding: 25px;
+                border-radius: 25px;
+            }
+
+            .sidebar-overlay {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.7);
+                backdrop-filter: blur(10px);
+                z-index: 1000;
+            }
+
+            /* Hide menu icon during login OR when sidebar is open */
+            #portal-gate:not([style*="display: none"])~.mobile-portal-toggle,
+            .mobile-portal-toggle.sidebar-active {
+                display: none !important;
+            }
+
+
+
+
+            .sidebar-overlay.active {
+                display: block;
+                animation: fadeIn 0.3s ease;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Toast UI */
+        #toast-container {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            z-index: 10010;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .toast {
+            background: rgba(15, 23, 42, 0.92);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--admin-accent);
+            color: white;
+            padding: 18px 30px;
+            border-radius: 22px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            animation: toastIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            max-width: 360px;
+        }
+
+        @keyframes toastIn {
+            from {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .toast.hide {
+            animation: toastOut 0.5s forwards;
+        }
+
+        @keyframes toastOut {
+            to {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+        }
+    </style>
+</head>
+
+<body class="portal-mode">
+    <!-- Global Background Orbs -->
+    <div class="global-bg-anim">
+        <div class="orb"></div>
+        <div class="orb"></div>
+        <div class="orb"></div>
+    </div>
+
+    <!-- Premium Preloader -->
+    <div id="preloader">
+        <div class="loader-content">
+            <div class="loader-logo">
+                <img src="logo.png.png" alt="DinePro Logo">
+            </div>
+            <div class="loader-spinner"></div>
+            <div class="loader-text">STAFF PORTAL</div>
+        </div>
+    </div>
+    <script>
+        // High-reliability preloader removal
+        function hidePreloader() {
+            const preloader = document.getElementById('preloader');
+            if (preloader && !preloader.classList.contains('fade-out')) {
+                preloader.classList.add('fade-out');
+                setTimeout(() => {
+                    preloader.style.display = 'none';
+                }, 1000);
+            }
+        }
+        window.addEventListener('load', hidePreloader);
+        // Fail-safe: hide anyway after 5 seconds
+        setTimeout(hidePreloader, 5000);
+    </script>
+
+    <div id="toast-container"></div>
+
+    <!-- Auth Gate -->
+    <div id="portal-gate">
+        <div class="gate-bg-anim">
+            <div class="gate-orb"></div>
+            <div class="gate-orb"></div>
+            <div class="gate-orb"></div>
+        </div>
+        <div class="gate-card">
+            <img src="logo.png.png" width="80" style="margin-bottom: 20px;">
+            <h2 style="color: var(--text-main);">Staff Portal Login</h2>
+            <input type="text" id="gate-name" placeholder="Your Registered Name">
+            <input type="password" id="gate-pass" placeholder="Personal Password">
+            <button class="toggle-btn btn-accent" style="width: 100%; justify-content: center;"
+                onclick="portalLogin()">Enter Portal</button>
+            <p id="gate-error" style="color: var(--danger); display: none; margin-top: 15px;">Invalid access code.</p>
+        </div>
+    </div>
+
+    <!-- Mobile Toggle -->
+    <div class="mobile-portal-toggle" onclick="toggleSidebar()" id="sidebar-toggle-btn">
+        <i class="fas fa-bars"></i>
+    </div>
+
+    <!-- Sidebar Overlay -->
+    <div class="sidebar-overlay" id="sidebar-overlay" onclick="toggleSidebar()"></div>
+
+    <div class="portal-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="portal-sidebar">
+            <div class="sidebar-logo">
+                <img src="logo.png.png" alt="DinePro Logo"
+                    style="width: 60px; margin-bottom: 15px; filter: drop-shadow(0 0 10px rgba(166,121,10,0.4));">
+                <div id="user-photo-container"
+                    style="position: relative; width: 70px; height: 70px; margin: 0 auto 10px;">
+                    <img id="user-photo" src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+                        style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 2.5px solid var(--admin-accent);">
+                </div>
+                <h3 id="user-display" style="margin: 0; font-size: 15px; color: var(--text-main);">Staff Member</h3>
+                <span id="level-display"
+                    style="font-size: 9px; color: var(--admin-accent); font-weight: 800; text-transform: uppercase; letter-spacing: 1px;">LEVEL
+                    1</span>
+            </div>
+
+
+            <nav class="sidebar-nav">
+                <div class="mode-toggle-container">
+                    <button class="mode-toggle-btn" onclick="toggleDisplayMode()">
+                        <i id="mode-icon" class="fas fa-moon"></i> <span id="mode-text">Dark Mode</span>
+                    </button>
+                </div>
+
+                <div style="margin-bottom: 20px; padding: 0 15px; display: flex; flex-direction: column; gap: 8px;">
+                    <button id="notify-sync-btn" onclick="enableMobileNotifications()"
+                        style="width: 100%; background: rgba(166, 121, 10, 0.1); border: 1.5px solid var(--admin-accent); color: var(--admin-accent); padding: 15px; border-radius: 20px; cursor: pointer; font-size: 14px; font-weight: 900; display: flex; align-items: center; justify-content: center; gap: 12px; transition: 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.15);">
+                        <i class="fas fa-bell"></i> SYSTEM SYNC
+                    </button>
+                    <button id="staff-refresh-btn" onclick="location.reload()"
+                        style="width: 100%; background: transparent; border: 1px solid var(--glass-border); color: var(--text-muted); padding: 10px; border-radius: 15px; cursor: pointer; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 8px; transition: 0.3s;">
+                        <i class="fas fa-sync-alt"></i> Refresh Portal
+                    </button>
+                </div>
+
+                <div class="nav-item active" onclick="switchSection('dashboard', this)">
+                    <i class="fas fa-th-large"></i> Dashboard
+                </div>
+                <div class="nav-item" onclick="switchSection('daily-report', this)">
+                    <i class="fas fa-file-alt"></i> Daily Work Report
+                </div>
+                <div class="nav-item" onclick="switchSection('chat-room', this)">
+                    <i class="fas fa-comments"></i> Team Chat
+                </div>
+                <div class="nav-item" onclick="switchSection('private-admin-chat', this)">
+                    <i class="fas fa-user-shield"></i> Admin DM
+                    <span id="p-chat-badge"
+                        style="background: red; color: white; border-radius: 50%; width: 8px; height: 8px; margin-left: auto; display: none;"></span>
+                </div>
+                <div class="nav-item" style="margin-top: auto; color: var(--danger);" onclick="location.reload()">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="portal-main">
+
+            <!-- 1. Dashboard Section -->
+            <section id="dashboard" class="content-section active">
+                <h1 style="margin-bottom: 30px;">Member Dashboard</h1>
+
+                <div class="status-grid">
+                    <div class="card duty-status">
+                        <div>
+                            <h4 style="color: var(--text-muted); margin: 0;">Duty Status</h4>
+                            <h2 id="duty-text" style="color: var(--text-main); margin: 10px 0;">OFF DUTY</h2>
+                        </div>
+                        <button id="duty-toggle" class="toggle-btn btn-on" onclick="toggleDuty()">
+                            <i class="fas fa-power-off"></i> Clock In
+                        </button>
+                    </div>
+
+                    <div class="card">
+                        <h4 style="color: var(--text-muted); margin: 0 0 15px 0;">Active Session</h4>
+                        <div id="duty-timer" style="font-size: 28px; font-weight: 800; color: var(--text-main);">
+                            00:00:00</div>
+                        <p id="duty-log-text" style="font-size: 12px; color: var(--text-muted); margin-top: 10px;">Not
+                            clocked in
+                            today.</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h2 style="margin-bottom: 20px;">Your Attendance History (Today)</h2>
+                    <div id="attendance-list" style="font-size: 14px; color: var(--text-main);">
+                        No logs yet.
+                    </div>
+                </div>
+            </section>
+
+            <!-- 2. Daily Report Section -->
+            <section id="daily-report" class="content-section">
+                <h1 style="margin-bottom: 30px;">Submit Daily Task Report</h1>
+                <div class="card" style="max-width: 600px;">
+                    <form id="report-form" class="portal-form">
+                        <div class="form-group">
+                            <label style="display: block; margin-bottom: 10px; font-size: 14px;">What did you do
+                                today?</label>
+                            <textarea id="report-text" rows="8"
+                                placeholder="List your completed tasks and achievements..."></textarea>
+                        </div>
+                        <button type="submit" class="toggle-btn btn-accent"
+                            style="width: 100%; justify-content: center;">Submit Daily Report</button>
+                    </form>
+                    <div id="report-success"
+                        style="margin-top: 20px; color: var(--success); display: none; text-align: center; font-weight: 700;">
+                        <i class="fas fa-check-circle"></i> Report submitted successfully!
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3. Chat Room Section -->
+            <section id="chat-room" class="content-section">
+                <h1 style="margin-bottom: 30px;" id="portal-room-name">Team Chat (Level 1)</h1>
+                <div class="chat-frame">
+                    <div class="chat-msgs-area" id="portal-chat-area">
+                        <!-- Messages Injected -->
+                    </div>
+                    <div class="chat-input-row">
+                        <input type="text" id="portal-chat-input" class="chat-input" placeholder="Type a message...">
+                        <button class="send-btn" onclick="sendPortalMessage()">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 4. Private Admin Chat Section -->
+            <section id="private-admin-chat" class="content-section">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+                    <h1>Message to Admin</h1>
+                    <span
+                        style="background: rgba(5, 150, 105, 0.1); color: var(--success); padding: 5px 12px; border-radius: 20px; font-size: 11px; font-weight: 800;">ENCRYPTED
+                        & PRIVATE</span>
+                </div>
+                <div class="chat-frame" style="border: 1px solid rgba(166,121,10,0.2);">
+                    <div class="chat-msgs-area" id="admin-pchat-area">
+                        <!-- Messages Injected -->
+                    </div>
+                    <div class="chat-input-row">
+                        <input type="text" id="admin-pchat-input" class="chat-input"
+                            placeholder="Type a private message to admin...">
+                        <button class="send-btn" onclick="sendPrivateAdminMessage()">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Firebase -->
+    <script type="module" src="firebase-init.js"></script>
+    <script>
+        let userData = {
+            name: "",
+            level: "level1",
+            isOnDuty: false,
+            clockInTime: null
+        };
+
+        const ROOM_CONFIG = {
+            level1: { name: "General Staff", pass: "1234" },
+            level2: { name: "Management", pass: "5678" },
+            level3: { name: "Executive Board", pass: "9999" }
+        };
+
+        // --- Auth Logic ---
+        function portalLogin() {
+            const name = document.getElementById('gate-name').value.trim();
+            const pass = document.getElementById('gate-pass').value;
+            const error = document.getElementById('gate-error');
+
+            if (!name || !pass) { alert("Please enter both name and password"); return; }
+
+            if (typeof window.firebaseDB === 'undefined') {
+                alert("Initializing... Please try again in 2 seconds.");
+                return;
+            }
+
+            // Sync with Firebase to check credentials
+            const usersRef = window.firebaseRef(window.firebaseDB, 'dinepro/staff/users');
+            window.firebaseOnValue(usersRef, (snapshot) => {
+                const users = snapshot.val();
+                let foundUser = null;
+
+                if (users) {
+                    foundUser = Object.values(users).find(u => u.name.toLowerCase() === name.toLowerCase() && u.pass === pass);
+                }
+
+                if (foundUser) {
+                    const userKey = Object.keys(users).find(key => users[key] === foundUser);
+                    userData.id = userKey;
+                    userData.name = foundUser.name;
+                    userData.level = foundUser.level;
+                    userData.photo = foundUser.photo || 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png';
+
+                    document.getElementById('user-display').innerText = foundUser.name;
+                    document.getElementById('user-photo').src = userData.photo;
+                    document.getElementById('level-display').innerText = foundUser.level.toUpperCase();
+                    document.getElementById('portal-room-name').innerText = `Team Chat (${foundUser.level.toUpperCase()})`;
+                    document.getElementById('portal-gate').style.display = 'none';
+                    document.body.classList.add('logged-in');
+
+                    initPortalData();
+                } else {
+                    error.style.display = 'block';
+                    error.innerText = "Invalid name or personalized password.";
+                }
+            }, { onlyOnce: true });
+        }
+
+        function switchSection(id, btn) {
+            document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            btn.classList.add('active');
+
+            // Close mobile sidebar if open
+            const sidebar = document.querySelector('.portal-sidebar');
+            if (window.innerWidth <= 1024 && sidebar.classList.contains('active')) {
+                toggleSidebar();
+            }
+
+            if (id === 'private-admin-chat') {
+                document.getElementById('p-chat-badge').style.display = 'none';
+                setTimeout(() => {
+                    const area = document.getElementById('admin-pchat-area');
+                    area.scrollTop = area.scrollHeight;
+                }, 100);
+            }
+
+            // Notification Permission Check
+            if (Notification.permission !== 'granted') {
+                Notification.requestPermission();
+            }
+        }
+
+        // --- Duty / Attendance Logic ---
+        function initPortalData() {
+            if (typeof window.firebaseDB === 'undefined') {
+                window.addEventListener('firebaseLoaded', initPortalData);
+                return;
+            }
+            initChatSync();
+            initPrivateChatSync();
+            fetchDutyStatus();
+        }
+
+        function toggleDuty() {
+            const today = new Date().toISOString().split('T')[0];
+            const timestamp = Date.now();
+            const logRef = window.firebaseRef(window.firebaseDB, `dinepro/staff/attendance/${userData.name}/${today}`);
+
+            if (!userData.isOnDuty) {
+                // Clocking IN
+                window.firebasePush(logRef, { action: 'IN', time: timestamp });
+                userData.isOnDuty = true;
+                userData.clockInTime = timestamp;
+                updateDutyUI(true);
+            } else {
+                // Clocking OUT
+                window.firebasePush(logRef, { action: 'OUT', time: timestamp });
+                userData.isOnDuty = false;
+                userData.clockInTime = null;
+                updateDutyUI(false);
+            }
+        }
+
+        function fetchDutyStatus() {
+            const today = new Date().toISOString().split('T')[0];
+            const logRef = window.firebaseRef(window.firebaseDB, `dinepro/staff/attendance/${userData.name}/${today}`);
+
+            window.firebaseOnValue(logRef, (snapshot) => {
+                const logs = snapshot.val();
+                const list = document.getElementById('attendance-list');
+                list.innerHTML = '';
+
+                if (logs) {
+                    const entries = Object.values(logs);
+                    entries.forEach(log => {
+                        const timeStr = new Date(log.time).toLocaleTimeString();
+                        list.innerHTML += `<div style="margin-bottom: 5px;">• ${log.action} at ${timeStr}</div>`;
+                    });
+
+                    // Set current status based on last entry
+                    const last = entries[entries.length - 1];
+                    if (last.action === 'IN') {
+                        userData.isOnDuty = true;
+                        userData.clockInTime = last.time;
+                        updateDutyUI(true);
+                    } else {
+                        userData.isOnDuty = false;
+                        updateDutyUI(false);
+                    }
+                }
+            });
+        }
+
+        function updateDutyUI(isOn) {
+            const btn = document.getElementById('duty-toggle');
+            const text = document.getElementById('duty-text');
+            if (isOn) {
+                text.innerText = 'ON DUTY';
+                text.style.color = 'var(--success)';
+                btn.className = 'toggle-btn btn-off';
+                btn.innerHTML = '<i class="fas fa-power-off"></i> Clock Out';
+            } else {
+                text.innerText = 'OFF DUTY';
+                text.style.color = 'var(--danger)';
+                btn.className = 'toggle-btn btn-on';
+                btn.innerHTML = '<i class="fas fa-power-off"></i> Clock In';
+                document.getElementById('duty-timer').innerText = '00:00:00';
+            }
+        }
+
+        // Timer Logic
+        setInterval(() => {
+            if (userData.isOnDuty && userData.clockInTime) {
+                const diff = Date.now() - userData.clockInTime;
+                const hrs = Math.floor(diff / 3600000).toString().padStart(2, '0');
+                const mins = Math.floor((diff % 3600000) / 60000).toString().padStart(2, '0');
+                const secs = Math.floor((diff % 60000) / 1000).toString().padStart(2, '0');
+                document.getElementById('duty-timer').innerText = `${hrs}:${mins}:${secs}`;
+            }
+        }, 1000);
+
+        // --- Daily Report Logic ---
+        document.getElementById('report-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const text = document.getElementById('report-text').value.trim();
+            if (!text) return;
+
+            const today = new Date().toISOString().split('T')[0];
+            const reportRef = window.firebaseRef(window.firebaseDB, `dinepro/staff/reports/${userData.name}/${today}`);
+
+            window.firebaseSet(reportRef, {
+                text: text,
+                timestamp: Date.now(),
+                level: userData.level
+            }).then(() => {
+                document.getElementById('report-text').value = '';
+                document.getElementById('report-success').style.display = 'block';
+                setTimeout(() => document.getElementById('report-success').style.display = 'none', 3000);
+            });
+        });
+
+        // --- Chat Logic ---
+        function initChatSync() {
+            const chatRef = window.firebaseRef(window.firebaseDB, `dinepro/chat/${userData.level}`);
+            window.firebaseOnValue(chatRef, (snapshot) => {
+                const data = snapshot.val();
+                const area = document.getElementById('portal-chat-area');
+                area.innerHTML = '';
+                if (data) {
+                    Object.values(data).forEach(m => {
+                        const isSent = m.user === userData.name;
+                        const bubble = document.createElement('div');
+                        bubble.className = `msg-bubble ${isSent ? 'sent' : 'received'}`;
+                        bubble.style.display = 'flex';
+                        bubble.style.gap = '10px';
+                        bubble.style.alignItems = 'flex-start';
+
+                        const senderPhoto = m.photo || 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png';
+
+                        bubble.innerHTML = `
+                            ${!isSent ? `<img src="${senderPhoto}" style="width: 25px; height: 25px; border-radius: 50%; object-fit: cover;">` : ''}
+                            <div>
+                                ${!isSent ? `<div style="font-size: 10px; font-weight: 700; margin-bottom: 4px; opacity: 0.7;">${m.user}</div>` : ''}
+                                <div>${m.text}</div>
+                            </div>
+                        `;
+                        area.appendChild(bubble);
+                    });
+                    area.scrollTop = area.scrollHeight;
+                }
+            });
+        }
+
+        function sendPortalMessage() {
+            const input = document.getElementById('portal-chat-input');
+            const text = input.value.trim();
+            if (text && window.firebaseDB) {
+                const chatRef = window.firebaseRef(window.firebaseDB, `dinepro/chat/${userData.level}`);
+                window.firebasePush(chatRef, {
+                    user: userData.name,
+                    text: text,
+                    photo: userData.photo,
+                    timestamp: Date.now()
+                });
+                input.value = '';
+            }
+        }
+
+        document.getElementById('portal-chat-input').addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') sendPortalMessage();
+        });
+
+        // --- PRIVATE CHAT WITH ADMIN LOGIC ---
+        let lastPrivMsgCount = -1;
+        let isInitialLoad = true;
+
+        function initPrivateChatSync() {
+            // Unique chat path based on User ID/Name (assuming unique names for simplicity here, key is better)
+            // But we need the DB key. Let's find it during login.
+            const pChatRef = window.firebaseRef(window.firebaseDB, `dinepro/private_chats/${userData.id}`);
+
+            window.firebaseOnValue(pChatRef, (snapshot) => {
+                const data = snapshot.val();
+                const area = document.getElementById('admin-pchat-area');
+                area.innerHTML = '';
+
+                if (!data) {
+                    area.innerHTML = '<div style="text-align: center; margin-top: 100px; opacity: 0.5; font-size: 13px;">No private messages yet. Your conversation with Admin is secure.</div>';
+                    lastPrivMsgCount = 0;
+                    isInitialLoad = false;
+                    return;
+                }
+
+                const messages = Object.values(data);
+
+                // NOTIFICATION LOGIC
+                if (!isInitialLoad && messages.length > lastPrivMsgCount) {
+                    const lastMsg = messages[messages.length - 1];
+                    if (lastMsg.sender === 'Admin' && !document.getElementById('private-admin-chat').classList.contains('active')) {
+                        const msgShort = `${lastMsg.text.substring(0, 30)}${lastMsg.text.length > 30 ? '...' : ''}`;
+                        showToast(`Admin: ${msgShort}`, 'fas fa-user-shield');
+                        playNotifySound("Admin Message", lastMsg.text);
+                    }
+                }
+
+                lastPrivMsgCount = messages.length;
+                isInitialLoad = false;
+
+                messages.forEach(m => {
+                    const isAdmin = m.sender === 'Admin';
+                    const bubble = document.createElement('div');
+                    bubble.className = `msg-bubble ${isAdmin ? 'received' : 'sent'}`;
+                    bubble.style.maxWidth = '85%';
+                    bubble.style.padding = '12px 18px';
+                    bubble.style.borderRadius = '20px';
+                    bubble.style.fontSize = '14px';
+                    bubble.style.boxShadow = '0 4px 10px rgba(0,0,0,0.1)';
+                    bubble.style.alignSelf = isAdmin ? 'flex-start' : 'flex-end';
+                    bubble.style.background = isAdmin ? 'rgba(255,255,255,0.08)' : 'var(--admin-accent)';
+
+                    bubble.innerHTML = `
+                        <div style="font-size: 9px; font-weight: 800; opacity: 0.6; margin-bottom: 4px; text-transform: uppercase;">${m.sender}</div>
+                        <div>${m.text}</div>
+                        <div style="font-size: 8px; opacity: 0.4; text-align: right; margin-top: 5px;">${new Date(m.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
+                    `;
+                    area.appendChild(bubble);
+                });
+                area.scrollTop = area.scrollHeight;
+
+                // Show badge if last message is from admin and not in chat section
+                const lastMsg = Object.values(data).pop();
+                if (lastMsg && lastMsg.sender === 'Admin' && !document.getElementById('private-admin-chat').classList.contains('active')) {
+                    document.getElementById('p-chat-badge').style.display = 'block';
+                }
+            });
+        }
+
+        function showToast(msg, icon = 'fas fa-info-circle') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.innerHTML = `
+                <i class="${icon}" style="color: var(--admin-accent); font-size: 20px;"></i>
+                <div style="font-size: 13px; font-weight: 600;">${msg}</div>
+            `;
+            container.appendChild(toast);
+
+            setTimeout(() => {
+                toast.classList.add('hide');
+                setTimeout(() => toast.remove(), 500);
+            }, 5000);
+        }
+
+        function playNotifySound(title, body) {
+            // New Clear Digital Ping sound
+            const audio = new Audio('notify.mp3');
+            audio.volume = 1.0;
+
+            // Mobile audio unlock required
+            audio.play().catch(e => {
+                showToast("New Message! Tap 'Sync' to hear alerts.", "fas fa-volume-up");
+            });
+
+            // --- BROWSER SYSTEM NOTIFICATION (INCLUDING BACKGROUND) ---
+            if (Notification.permission === 'granted') {
+                const options = {
+                    body: body || "You have a new message.",
+                    icon: 'app-logo.jpg',
+                    badge: 'app-logo.jpg',
+                    vibrate: [100, 50, 100],
+                    requireInteraction: true,
+                    silent: false,
+                    tag: 'dinepro-msg-staff',
+                    renotify: true
+                };
+
+                if ('serviceWorker' in navigator) {
+                    navigator.serviceWorker.ready.then(registration => {
+                        registration.showNotification(title || "DinePro Portal Alert", options);
+                    });
+                } else {
+                    new Notification(title || "DinePro Portal Alert", options);
+                }
+            }
+        }
+
+        // Handle PWA Install Prompt for Staff
+        let deferredStaffPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredStaffPrompt = e;
+            const syncBtn = document.getElementById('notify-sync-btn');
+            if (syncBtn) {
+                syncBtn.innerHTML = '<i class="fas fa-download"></i> INSTALL APP';
+                syncBtn.style.animation = 'pulse-staff 2s infinite';
+            }
+        });
+
+        // Register Service Worker with scope
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('service-worker.js', { scope: './' })
+                .then(reg => console.log('Staff SW Registered', reg))
+                .catch(err => console.log('Staff SW Failed', err));
+        }
+
+        function enableMobileNotifications() {
+            // Handle PWA Installation first if button has flipped to Install mode
+            if (deferredStaffPrompt) {
+                deferredStaffPrompt.prompt();
+                deferredStaffPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        console.log('Staff accepted install');
+                        const btn = document.getElementById('notify-sync-btn');
+                        btn.style.animation = 'none';
+                        btn.innerHTML = '<i class="fas fa-bell"></i> SYSTEM SYNC';
+                    }
+                    deferredStaffPrompt = null;
+                });
+                return;
+            }
+
+            // 1. Unlock Audio Context
+            const silentAudio = new Audio('notify.mp3');
+            silentAudio.volume = 0;
+            silentAudio.play().then(() => {
+                const btn = document.getElementById('notify-sync-btn');
+                btn.innerHTML = '<i class="fas fa-check-circle"></i> SYSTEM SYNCED';
+                btn.style.background = 'rgba(16, 185, 129, 0.1)';
+                btn.style.borderColor = 'var(--success)';
+                btn.style.color = 'var(--success)';
+                btn.style.animation = 'none';
+
+                showToast('Audio & Notifications Synced!', 'fas fa-check-circle');
+            }).catch(e => console.log("Failed to unlock audio"));
+
+            // 2. Request System Permission
+            if (Notification.permission !== 'granted') {
+                Notification.requestPermission();
+            }
+
+            // 3. Test Notification
+            if (Notification.permission === 'granted') {
+                playNotifySound("Portal Active", "You are now synced for background alerts.");
+            }
+
+            // iOS Check
+            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+            const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
+            if (isIOS && !isStandalone) {
+                alert("iPhone Users: Tap the 'Share' icon (square with arrow) and select 'Add to Home Screen'. Then open the app from your home screen to enable Lockscreen alerts!");
+            }
+        }
+
+        function sendPrivateAdminMessage() {
+            const input = document.getElementById('admin-pchat-input');
+            const text = input.value.trim();
+            if (text && window.firebaseDB && userData.id) {
+                const pChatRef = window.firebaseRef(window.firebaseDB, `dinepro/private_chats/${userData.id}`);
+                window.firebasePush(pChatRef, {
+                    sender: userData.name,
+                    text: text,
+                    timestamp: Date.now()
+                });
+                input.value = '';
+            }
+        }
+
+        document.getElementById('admin-pchat-input')?.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') sendPrivateAdminMessage();
+        });
+
+        // Toggle Sidebar for Mobile
+        function toggleSidebar() {
+            const sidebar = document.querySelector('.portal-sidebar');
+            const overlay = document.getElementById('sidebar-overlay');
+            const toggleBtn = document.getElementById('sidebar-toggle-btn');
+            const toggleIcon = document.querySelector('#sidebar-toggle-btn i');
+
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+            toggleBtn.classList.toggle('sidebar-active');
+
+            if (sidebar.classList.contains('active')) {
+                toggleIcon.className = 'fas fa-times';
+            } else {
+                toggleIcon.className = 'fas fa-bars';
+            }
+        }
+
+        // Mode Toggle Logic
+        function toggleDisplayMode() {
+            const body = document.body;
+            const isLight = body.classList.toggle('light-mode');
+            localStorage.setItem('staff_mode', isLight ? 'light' : 'dark');
+            updateModeUI(isLight);
+        }
+
+        function updateModeUI(isLight) {
+            const icon = document.getElementById('mode-icon');
+            const text = document.getElementById('mode-text');
+            if (icon && text) {
+                icon.className = isLight ? 'fas fa-moon' : 'fas fa-sun';
+                text.innerText = isLight ? 'Dark Mode' : 'Light Mode';
+            }
+        }
+
+        // Apply saved mode on load
+        (function () {
+            const savedMode = localStorage.getItem('staff_mode') || 'dark';
+            if (savedMode === 'light') {
+                document.body.classList.add('light-mode');
+                setTimeout(() => updateModeUI(true), 100);
+            } else {
+                setTimeout(() => updateModeUI(false), 100);
+            }
+        })();
+
+        // Pulse Animation CSS
+        const styleStaff = document.createElement('style');
+        styleStaff.innerHTML = `
+            @keyframes pulse-staff {
+                0% { box-shadow: 0 0 0 0 rgba(166, 121, 10, 0.4); }
+                70% { box-shadow: 0 0 0 15px rgba(166, 121, 10, 0); }
+                100% { box-shadow: 0 0 0 0 rgba(166, 121, 10, 0); }
+            }
+        `;
+        document.head.appendChild(styleStaff);
+
+    </script>
+</body>
+
+</html>
