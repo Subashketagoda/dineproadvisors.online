@@ -9,9 +9,11 @@
             location.replace(`https:${location.href.substring(location.protocol.length)}`);
         }
     </script>
-    <title>DinePro Advisors | Elite Restaurant Consulting</title>
+    <title>DinePro Advisors | Elite Restaurant Consulting & Hospitality Strategy</title>
     <meta name="description"
-        content="Premium restaurant consulting and advisory services. Elevate your hospitality business with DinePro Advisors.">
+        content="Premium restaurant consulting and advisory services in Sri Lanka. Elevate your hospitality business with DinePro Advisors. Expert menu engineering, concept development, and operational audits.">
+    <meta name="keywords" content="restaurant consulting, hospitality advisory, menu engineering, restaurant startup, operational audit, staff training, DinePro Advisors, Sri Lanka restaurant experts">
+    <meta name="robots" content="index, follow">
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -30,6 +32,8 @@
     <link rel="canonical" href="https://dineproadvisors.online/">
     <meta property="og:url" content="https://dineproadvisors.online/">
     <meta property="og:type" content="website">
+    <meta property="og:site_name" content="DinePro Advisors">
+    <meta property="og:locale" content="en_US">
     <meta property="og:title" content="DinePro Advisors | Elite Restaurant Consulting">
     <meta property="og:description" content="Premium restaurant consulting and advisory services. Elevate your hospitality business with DinePro Advisors.">
     <meta property="og:image" content="https://dineproadvisors.online/app-logo.jpg">
@@ -37,6 +41,50 @@
     <meta name="twitter:title" content="DinePro Advisors | Elite Restaurant Consulting">
     <meta name="twitter:description" content="Premium restaurant consulting and advisory services. Elevate your hospitality business with DinePro Advisors.">
     <meta name="twitter:image" content="https://dineproadvisors.online/app-logo.jpg">
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      "name": "DinePro Advisors",
+      "image": "https://dineproadvisors.online/app-logo.jpg",
+      "@id": "https://dineproadvisors.online/",
+      "url": "https://dineproadvisors.online/",
+      "telephone": "+94762583670",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "648/5, Nugadeniya road, Pelawatta",
+        "addressLocality": "Battaramulla",
+        "addressRegion": "Western Province",
+        "postalCode": "10120",
+        "addressCountry": "LK"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 6.8917,
+        "longitude": 79.9272
+      },
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday",
+          "Sunday"
+        ],
+        "opens": "00:00",
+        "closes": "23:59"
+      },
+      "sameAs": [
+        "https://www.facebook.com/dineproadvisors",
+        "https://www.instagram.com/dineproadvisors"
+      ]
+    }
+    </script>
 </head>
 
 <body>
@@ -85,12 +133,12 @@
             </div>
             <div class="top-right">
                 <div class="social-links">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" aria-label="Follow DinePro Advisors on Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Follow DinePro Advisors on Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="Connect with DinePro Advisors on LinkedIn"><i class="fab fa-linkedin-in"></i></a>
                 </div>
                 <div class="lang-selector">
-                    <img src="https://flagcdn.com/w20/gb.png" alt="English">
+                    <img src="https://flagcdn.com/w20/gb.png" alt="English (UK)">
                     <span>English</span>
                     <i class="fas fa-chevron-down"></i>
                 </div>
@@ -137,11 +185,12 @@
         </div>
     </header>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="hero">
         <div class="hero-slider">
             <div class="slide active"
-                style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.4)), url('hero.jpg');">
+                style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.2)), url('hero.jpg');">
                 <div class="container hero-content">
                     <div class="tagline">WE PROVIDE</div>
                     <h1>THE BEST SOLUTION<br>FOR <span>HOSPITALITY INDUSTRY</span></h1>
@@ -153,7 +202,7 @@
                 </div>
             </div>
             <div class="slide"
-                style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.4)), url('hero2.jpg');">
+                style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.2)), url('hero2.jpg');">
                 <div class="container hero-content">
                     <div class="tagline">INNOVATIVE DESIGN</div>
                     <h1>TRANSFORMING YOUR<br><span>RESTAURANT SPACE</span></h1>
@@ -161,12 +210,12 @@
                     <div class="hero-btns">
                         <a href="#services" class="btn btn-primary">View Concepts</a>
                         <a href="https://api.whatsapp.com/send?phone=94762583670&text=Hello%20DinePro%20Advisors!%20I%20would%20like%20to%20get%20a%20quote%20for%20my%20restaurant%20project."
-                            class="btn btn-outline">Get a Quote</a>
+                            class="btn btn-outline" aria-label="Get a Quote via WhatsApp">Get a Quote</a>
                     </div>
                 </div>
             </div>
             <div class="slide"
-                style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.4)), url('hero3.jpg');">
+                style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.2)), url('hero3.jpg');">
                 <div class="container hero-content">
                     <div class="tagline">EXPERT STRATEGY</div>
                     <h1>MENU ENGINEERING<br>FOR <span>ELITE RESULTS</span></h1>
@@ -174,7 +223,7 @@
                     <div class="hero-btns">
                         <a href="#services" class="btn btn-primary">Learn More</a>
                         <a href="https://api.whatsapp.com/send?phone=94762583670&text=Hello%20DinePro%20Advisors!%20I%20want%20to%20consult%20about%20my%20restaurant%20menu."
-                            class="btn btn-outline">Consult Now</a>
+                            class="btn btn-outline" aria-label="Consult Now via WhatsApp">Consult Now</a>
                     </div>
                 </div>
             </div>
@@ -209,7 +258,7 @@
             <div class="about-grid"
                 style="display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center;">
                 <div class="about-image">
-                    <img src="about.png" alt="DinePro Leadership"
+                    <img src="about.png" alt="DinePro Advisors Leadership Team"
                         style="width: 100%; border-radius: 30px; border: 1px solid var(--glass-border); box-shadow: 0 30px 60px rgba(0,0,0,0.3);">
                 </div>
                 <div class="about-text">
@@ -250,7 +299,7 @@
             </div>
             <div class="services-grid">
                 <div class="service-card">
-                    <img src="service1.jpg" alt="Concept Development" class="service-img">
+                    <img src="service1.jpg" alt="Restaurant Concept Development and Planning" class="service-img">
                     <div class="service-body">
                         <div class="icon-box"><i class="fas fa-rocket"></i></div>
                         <h3>Concept Development</h3>
@@ -258,7 +307,7 @@
                     </div>
                 </div>
                 <div class="service-card">
-                    <img src="service2.jpg" alt="Menu Engineering" class="service-img">
+                    <img src="service2.jpg" alt="Strategic Menu Engineering and Profitability Analysis" class="service-img">
                     <div class="service-body">
                         <div class="icon-box"><i class="fas fa-clipboard-list"></i></div>
                         <h3>Menu Engineering</h3>
@@ -266,7 +315,7 @@
                     </div>
                 </div>
                 <div class="service-card">
-                    <img src="service3.jpg" alt="Staff Training" class="service-img">
+                    <img src="service3.jpg" alt="Hospitality Staff Training and Service Excellence" class="service-img">
                     <div class="service-body">
                         <div class="icon-box"><i class="fas fa-users"></i></div>
                         <h3>Staff Training</h3>
@@ -274,7 +323,7 @@
                     </div>
                 </div>
                 <div class="service-card">
-                    <img src="hero.jpg" alt="Operational Audit" class="service-img">
+                    <img src="hero.jpg" alt="Restaurant Operational Audit and Performance Review" class="service-img">
                     <div class="service-body">
                         <div class="icon-box"><i class="fas fa-chart-line"></i></div>
                         <h3>Operational Audit</h3>
@@ -497,6 +546,8 @@
         </div>
     </section>
 
+    </main>
+
     <!-- Detailed Footer -->
     <footer>
         <div class="container footer-content">
@@ -506,10 +557,10 @@
                 <p>Strategic restaurant consulting designed to help hospitality businesses grow, optimize operations,
                     and maximize profitability through expert guidance and industry insight.</p>
                 <div class="footer-social">
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-google-plus-g"></i></a>
+                    <a href="#" aria-label="Follow us on Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Connect on LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" aria-label="Follow us on Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Check us on Google Plus"><i class="fab fa-google-plus-g"></i></a>
                 </div>
             </div>
             <div class="footer-col links-col">
@@ -581,7 +632,7 @@
                     <i class="far fa-comment-alt" id="goChat"></i>
                 </div>
                 <div class="powered-by">
-                    <img src="https://flagcdn.com/w40/lk.png" alt="Icon" style="width: 35px; margin-right: 8px;">
+                    <img src="https://flagcdn.com/w40/lk.png" alt="Proudly Sri Lankan" style="width: 35px; margin-right: 8px;">
                     Powered by <a href="https://69studiobysubash.online/" target="_blank"
                         style="color: inherit; text-decoration: none; margin-left: 3px; font-weight: 600;">69 Studio by
                         Subhash</a>
