@@ -1749,8 +1749,11 @@
 
                 <!-- Section: Developer Options -->
                 <div id="developer-section" class="admin-view">
+                    <!-- Emergency fallback indicator -->
+                    <p id="dev-section-confirm" style="color: #10B981 !important; font-weight: 900; font-size: 16px; padding: 10px; background: rgba(16,185,129,0.1); border-radius: 10px; border: 2px solid #10B981; display: block !important;">✅ Developer Section is Rendering</p>
+
                     <!-- IN-PAGE Password Gate (shown when not authenticated) -->
-                    <div id="dev-password-gate" style="display: flex; justify-content: center; align-items: center; min-height: 60vh;">
+                    <div id="dev-password-gate" style="display: flex !important; justify-content: center; align-items: center; min-height: 60vh; width: 100%;">
                         <div style="background: var(--admin-card); border: 1px solid var(--glass-border); border-radius: 30px; padding: 50px 40px; text-align: center; max-width: 420px; width: 100%; box-shadow: 0 20px 60px rgba(0,0,0,0.4);">
                             <div style="width: 70px; height: 70px; background: rgba(16,185,129,0.1); border-radius: 20px; display: flex; align-items: center; justify-content: center; margin: 0 auto 25px;">
                                 <i class="fas fa-terminal" style="font-size: 28px; color: #10B981;"></i>
@@ -1913,6 +1916,192 @@
                                 <div id="no-changes-info" class="no-data-info" style="display:none; text-align:center; padding: 40px; color: var(--text-muted);">
                                     <i class="fas fa-history" style="font-size: 30px; color: #2563EB; display: block; margin-bottom: 10px;"></i>
                                     No changes logged yet.
+                                </div>
+                            </div>
+
+                        </div> <!-- Close Data View Tables card -->
+
+                        <!-- ═══ QUICK ACTIONS ROW ═══ -->
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 15px; margin-top: 30px; margin-bottom: 30px;">
+                            <button onclick="exportFirebaseData()" style="background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.25); color: #10B981; padding: 18px 10px; border-radius: 16px; cursor: pointer; font-weight: 800; font-size: 12px; transition: all 0.3s;">
+                                <i class="fas fa-file-export" style="display:block; font-size:22px; margin-bottom:8px;"></i>Export DB (JSON)
+                            </button>
+                            <button onclick="sendTestNotification()" style="background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.25); color: #F59E0B; padding: 18px 10px; border-radius: 16px; cursor: pointer; font-weight: 800; font-size: 12px; transition: all 0.3s;">
+                                <i class="fas fa-bell" style="display:block; font-size:22px; margin-bottom:8px;"></i>Test Notification
+                            </button>
+                            <button onclick="clearSiteCache()" style="background: rgba(139,92,246,0.1); border: 1px solid rgba(139,92,246,0.25); color: #8B5CF6; padding: 18px 10px; border-radius: 16px; cursor: pointer; font-weight: 800; font-size: 12px; transition: all 0.3s;">
+                                <i class="fas fa-broom" style="display:block; font-size:22px; margin-bottom:8px;"></i>Clear Cache
+                            </button>
+                            <button onclick="runSiteHealthCheck()" style="background: rgba(37,99,235,0.1); border: 1px solid rgba(37,99,235,0.25); color: #2563EB; padding: 18px 10px; border-radius: 16px; cursor: pointer; font-weight: 800; font-size: 12px; transition: all 0.3s;">
+                                <i class="fas fa-heartbeat" style="display:block; font-size:22px; margin-bottom:8px;"></i>Health Check
+                            </button>
+                            <button onclick="toggleMaintenanceMode()" id="maintenance-btn" style="background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.25); color: #EF4444; padding: 18px 10px; border-radius: 16px; cursor: pointer; font-weight: 800; font-size: 12px; transition: all 0.3s;">
+                                <i class="fas fa-hard-hat" style="display:block; font-size:22px; margin-bottom:8px;"></i>Maintenance Mode
+                            </button>
+                            <button onclick="setDevicePreview('mobile')" style="background: rgba(251,191,36,0.1); border: 1px solid rgba(251,191,36,0.25); color: #FBBF24; padding: 18px 10px; border-radius: 16px; cursor: pointer; font-weight: 800; font-size: 12px; transition: all 0.3s;">
+                                <i class="fas fa-mobile-alt" style="display:block; font-size:22px; margin-bottom:8px;"></i>Preview Mobile
+                            </button>
+                        </div>
+
+                        <!-- ═══ SITE HEALTH DASHBOARD ═══ -->
+                        <div class="stat-card" style="flex-direction: column; align-items: stretch; padding: 30px; margin-bottom: 25px;">
+                            <div style="display:flex; align-items:center; gap:12px; margin-bottom:25px;">
+                                <div style="width:40px;height:40px;background:rgba(37,99,235,0.15);border-radius:12px;display:flex;align-items:center;justify-content:center;"><i class="fas fa-heartbeat" style="color:#2563EB;font-size:18px;"></i></div>
+                                <h3 style="margin:0;font-size:17px;font-weight:800;">Site Health Dashboard</h3>
+                                <button onclick="runSiteHealthCheck()" style="margin-left:auto;background:rgba(37,99,235,0.1);border:1px solid rgba(37,99,235,0.3);color:#2563EB;padding:8px 18px;border-radius:10px;cursor:pointer;font-size:12px;font-weight:800;"><i class="fas fa-sync-alt"></i> Run Check</button>
+                            </div>
+                            <div id="health-check-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:15px;">
+                                <div class="health-item" data-key="firebase" style="background:rgba(0,0,0,0.2);border-radius:15px;padding:18px;border:1px solid var(--glass-border);">
+                                    <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;"><i class="fas fa-database" style="color:#F59E0B;"></i><span style="font-weight:700;font-size:13px;">Firebase DB</span></div>
+                                    <div class="health-status" style="font-size:12px;color:#64748b;">Pending check...</div>
+                                </div>
+                                <div class="health-item" data-key="formspree" style="background:rgba(0,0,0,0.2);border-radius:15px;padding:18px;border:1px solid var(--glass-border);">
+                                    <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;"><i class="fas fa-envelope" style="color:#8B5CF6;"></i><span style="font-weight:700;font-size:13px;">Formspree API</span></div>
+                                    <div class="health-status" style="font-size:12px;color:#64748b;">Pending check...</div>
+                                </div>
+                                <div class="health-item" data-key="notifications" style="background:rgba(0,0,0,0.2);border-radius:15px;padding:18px;border:1px solid var(--glass-border);">
+                                    <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;"><i class="fas fa-bell" style="color:#10B981;"></i><span style="font-weight:700;font-size:13px;">Push Notifications</span></div>
+                                    <div class="health-status" style="font-size:12px;color:#64748b;">Pending check...</div>
+                                </div>
+                                <div class="health-item" data-key="sw" style="background:rgba(0,0,0,0.2);border-radius:15px;padding:18px;border:1px solid var(--glass-border);">
+                                    <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;"><i class="fas fa-cog" style="color:#2563EB;"></i><span style="font-weight:700;font-size:13px;">Service Worker</span></div>
+                                    <div class="health-status" style="font-size:12px;color:#64748b;">Pending check...</div>
+                                </div>
+                                <div class="health-item" data-key="storage" style="background:rgba(0,0,0,0.2);border-radius:15px;padding:18px;border:1px solid var(--glass-border);">
+                                    <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;"><i class="fas fa-hdd" style="color:#EF4444;"></i><span style="font-weight:700;font-size:13px;">Local Storage</span></div>
+                                    <div class="health-status" style="font-size:12px;color:#64748b;">Pending check...</div>
+                                </div>
+                                <div class="health-item" data-key="online" style="background:rgba(0,0,0,0.2);border-radius:15px;padding:18px;border:1px solid var(--glass-border);">
+                                    <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;"><i class="fas fa-wifi" style="color:#10B981;"></i><span style="font-weight:700;font-size:13px;">Network Status</span></div>
+                                    <div class="health-status" style="font-size:12px;color:#64748b;">Pending check...</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- ═══ ADMIN LOGIN AUDIT LOG ═══ -->
+                        <div class="stat-card" style="flex-direction: column; align-items: stretch; padding: 30px; margin-bottom: 25px;">
+                            <div style="display:flex;align-items:center;gap:12px;margin-bottom:25px;">
+                                <div style="width:40px;height:40px;background:rgba(239,68,68,0.15);border-radius:12px;display:flex;align-items:center;justify-content:center;"><i class="fas fa-shield-alt" style="color:#EF4444;font-size:18px;"></i></div>
+                                <div>
+                                    <h3 style="margin:0;font-size:17px;font-weight:800;">Admin Login Audit Log</h3>
+                                    <p style="margin:3px 0 0;font-size:12px;color:var(--text-muted);">Tracks all login & logout events with IP and timestamp</p>
+                                </div>
+                                <div style="margin-left:auto;display:flex;align-items:center;gap:8px;">
+                                    <span id="failed-login-badge" style="background:rgba(239,68,68,0.15);color:#EF4444;padding:5px 14px;border-radius:20px;font-size:11px;font-weight:900;border:1px solid rgba(239,68,68,0.2);">0 Failed</span>
+                                    <button onclick="clearAuditLog()" style="background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.2);color:#EF4444;padding:7px 14px;border-radius:10px;cursor:pointer;font-size:11px;font-weight:800;"><i class="fas fa-trash"></i></button>
+                                </div>
+                            </div>
+                            <div class="table-container">
+                                <table>
+                                    <thead><tr>
+                                        <th>Timestamp</th>
+                                        <th>Event</th>
+                                        <th>Status</th>
+                                        <th>User Agent</th>
+                                    </tr></thead>
+                                    <tbody id="audit-log-list"></tbody>
+                                </table>
+                                <div id="no-audit-info" style="text-align:center;padding:30px;color:var(--text-muted);font-size:13px;display:none;"><i class="fas fa-check-shield" style="color:#10B981;display:block;font-size:24px;margin-bottom:8px;"></i>No login events logged yet.</div>
+                            </div>
+                        </div>
+
+                        <!-- ═══ TWO COLUMN: SECURITY + MAINTENANCE ═══ -->
+                        <div style="display:grid;grid-template-columns:1fr 1fr;gap:25px;margin-bottom:25px;">
+
+                            <!-- Security Settings -->
+                            <div class="stat-card" style="flex-direction:column;align-items:stretch;padding:30px;">
+                                <div style="display:flex;align-items:center;gap:12px;margin-bottom:25px;">
+                                    <div style="width:40px;height:40px;background:rgba(139,92,246,0.15);border-radius:12px;display:flex;align-items:center;justify-content:center;"><i class="fas fa-lock" style="color:#8B5CF6;font-size:18px;"></i></div>
+                                    <h3 style="margin:0;font-size:17px;font-weight:800;">Security Settings</h3>
+                                </div>
+                                <div style="background:rgba(0,0,0,0.2);border-radius:15px;padding:20px;margin-bottom:18px;border:1px solid var(--glass-border);">
+                                    <div style="font-size:11px;font-weight:900;color:#8B5CF6;text-transform:uppercase;letter-spacing:1px;margin-bottom:15px;">Change Admin Password</div>
+                                    <input type="password" id="sec-current-pw" placeholder="Current password" style="width:100%;padding:12px;background:var(--input-bg);border:1px solid var(--glass-border);border-radius:10px;color:var(--input-text);margin-bottom:10px;font-size:13px;">
+                                    <input type="password" id="sec-new-pw" placeholder="New password" style="width:100%;padding:12px;background:var(--input-bg);border:1px solid var(--glass-border);border-radius:10px;color:var(--input-text);margin-bottom:10px;font-size:13px;">
+                                    <input type="password" id="sec-confirm-pw" placeholder="Confirm new password" style="width:100%;padding:12px;background:var(--input-bg);border:1px solid var(--glass-border);border-radius:10px;color:var(--input-text);margin-bottom:15px;font-size:13px;">
+                                    <button onclick="changeAdminPassword()" style="width:100%;padding:12px;background:linear-gradient(135deg,#8B5CF6,#7C3AED);border:none;border-radius:10px;color:white;font-weight:800;font-size:13px;cursor:pointer;"><i class="fas fa-key"></i> Update Password</button>
+                                    <p id="pw-change-msg" style="font-size:12px;margin-top:10px;display:none;"></p>
+                                </div>
+                                <div style="background:rgba(239,68,68,0.05);border-radius:15px;padding:18px;border:1px solid rgba(239,68,68,0.2);">
+                                    <div style="font-size:11px;font-weight:900;color:#EF4444;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;">Failed Login Attempts</div>
+                                    <div id="failed-attempts-display" style="font-size:28px;font-weight:900;color:#EF4444;">0</div>
+                                    <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">Total failed attempts recorded</div>
+                                    <button onclick="clearFailedAttempts()" style="margin-top:12px;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.2);color:#EF4444;padding:8px 18px;border-radius:8px;cursor:pointer;font-size:11px;font-weight:800;">Clear Record</button>
+                                </div>
+                            </div>
+
+                            <!-- Maintenance Mode -->
+                            <div class="stat-card" style="flex-direction:column;align-items:stretch;padding:30px;">
+                                <div style="display:flex;align-items:center;gap:12px;margin-bottom:25px;">
+                                    <div style="width:40px;height:40px;background:rgba(239,68,68,0.15);border-radius:12px;display:flex;align-items:center;justify-content:center;"><i class="fas fa-hard-hat" style="color:#EF4444;font-size:18px;"></i></div>
+                                    <h3 style="margin:0;font-size:17px;font-weight:800;">Maintenance Mode</h3>
+                                </div>
+                                <div id="maintenance-status-card" style="background:rgba(16,185,129,0.08);border:2px solid rgba(16,185,129,0.3);border-radius:18px;padding:25px;text-align:center;margin-bottom:20px;">
+                                    <div id="maintenance-icon" style="font-size:36px;margin-bottom:12px;">✅</div>
+                                    <div id="maintenance-label" style="font-size:18px;font-weight:900;color:#10B981;">SITE ONLINE</div>
+                                    <div style="font-size:12px;color:var(--text-muted);margin-top:5px;">Website is live and accessible</div>
+                                </div>
+                                <button id="maintenance-toggle-btn" onclick="toggleMaintenanceMode()" style="width:100%;padding:16px;background:linear-gradient(135deg,#EF4444,#DC2626);border:none;border-radius:14px;color:white;font-weight:900;font-size:14px;cursor:pointer;transition:all 0.3s;">
+                                    <i class="fas fa-hard-hat"></i> ENABLE MAINTENANCE MODE
+                                </button>
+                                <div style="background:rgba(0,0,0,0.2);border-radius:12px;padding:15px;margin-top:15px;">
+                                    <div style="font-size:11px;font-weight:800;color:var(--text-muted);margin-bottom:8px;">Custom Maintenance Message</div>
+                                    <textarea id="maintenance-message" rows="3" placeholder="We'll be back soon! Scheduled maintenance in progress." style="width:100%;background:var(--input-bg);border:1px solid var(--glass-border);border-radius:8px;color:var(--input-text);padding:10px;font-size:12px;resize:none;"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- ═══ DEV NOTES SCRATCHPAD ═══ -->
+                        <div class="stat-card" style="flex-direction:column;align-items:stretch;padding:30px;margin-bottom:25px;">
+                            <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;">
+                                <div style="width:40px;height:40px;background:rgba(251,191,36,0.15);border-radius:12px;display:flex;align-items:center;justify-content:center;"><i class="fas fa-sticky-note" style="color:#FBBF24;font-size:18px;"></i></div>
+                                <div>
+                                    <h3 style="margin:0;font-size:17px;font-weight:800;">Developer Scratchpad</h3>
+                                    <p style="margin:3px 0 0;font-size:12px;color:var(--text-muted);">Saved to Firebase — accessible from any device</p>
+                                </div>
+                                <button onclick="saveDevNotes()" style="margin-left:auto;background:linear-gradient(135deg,#FBBF24,#F59E0B);border:none;color:#1a1a1a;padding:10px 22px;border-radius:12px;cursor:pointer;font-size:12px;font-weight:900;"><i class="fas fa-save"></i> Save Notes</button>
+                            </div>
+                            <textarea id="dev-notes-area" rows="8" placeholder="Write your dev notes here... (TODOs, ideas, reminders, credentials hints)" style="width:100%;background:rgba(0,0,0,0.25);border:1px solid var(--glass-border);border-radius:15px;color:var(--input-text);padding:20px;font-family:'Consolas','Monaco',monospace;font-size:13px;line-height:1.7;resize:vertical;transition:border 0.3s;"></textarea>
+                            <div id="notes-save-status" style="font-size:12px;color:var(--text-muted);margin-top:10px;text-align:right;"></div>
+                        </div>
+
+                        <!-- ═══ FIREBASE USAGE MONITOR ═══ -->
+                        <div class="stat-card" style="flex-direction:column;align-items:stretch;padding:30px;margin-bottom:25px;">
+                            <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;">
+                                <div style="width:40px;height:40px;background:rgba(245,158,11,0.15);border-radius:12px;display:flex;align-items:center;justify-content:center;"><i class="fas fa-database" style="color:#F59E0B;font-size:18px;"></i></div>
+                                <h3 style="margin:0;font-size:17px;font-weight:800;">Firebase Usage Monitor</h3>
+                                <button onclick="refreshFirebaseStats()" style="margin-left:auto;background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.3);color:#F59E0B;padding:8px 18px;border-radius:10px;cursor:pointer;font-size:12px;font-weight:800;"><i class="fas fa-sync-alt"></i> Refresh</button>
+                            </div>
+                            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:15px;">
+                                <div style="background:rgba(0,0,0,0.2);border-radius:14px;padding:20px;border:1px solid var(--glass-border);text-align:center;">
+                                    <i class="fas fa-users" style="color:#10B981;font-size:24px;margin-bottom:10px;display:block;"></i>
+                                    <div id="fb-stat-submissions" style="font-size:24px;font-weight:900;color:#10B981;">—</div>
+                                    <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">Form Submissions</div>
+                                </div>
+                                <div style="background:rgba(0,0,0,0.2);border-radius:14px;padding:20px;border:1px solid var(--glass-border);text-align:center;">
+                                    <i class="fas fa-calendar-check" style="color:#2563EB;font-size:24px;margin-bottom:10px;display:block;"></i>
+                                    <div id="fb-stat-bookings" style="font-size:24px;font-weight:900;color:#2563EB;">—</div>
+                                    <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">Total Bookings</div>
+                                </div>
+                                <div style="background:rgba(0,0,0,0.2);border-radius:14px;padding:20px;border:1px solid var(--glass-border);text-align:center;">
+                                    <i class="fas fa-bug" style="color:#EF4444;font-size:24px;margin-bottom:10px;display:block;"></i>
+                                    <div id="fb-stat-bugs" style="font-size:24px;font-weight:900;color:#EF4444;">—</div>
+                                    <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">Bug Reports</div>
+                                </div>
+                                <div style="background:rgba(0,0,0,0.2);border-radius:14px;padding:20px;border:1px solid var(--glass-border);text-align:center;">
+                                    <i class="fas fa-code-branch" style="color:#8B5CF6;font-size:24px;margin-bottom:10px;display:block;"></i>
+                                    <div id="fb-stat-changes" style="font-size:24px;font-weight:900;color:#8B5CF6;">—</div>
+                                    <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">Change Logs</div>
+                                </div>
+                                <div style="background:rgba(0,0,0,0.2);border-radius:14px;padding:20px;border:1px solid var(--glass-border);text-align:center;">
+                                    <i class="fas fa-stream" style="color:#FBBF24;font-size:24px;margin-bottom:10px;display:block;"></i>
+                                    <div id="fb-stat-logs" style="font-size:24px;font-weight:900;color:#FBBF24;">—</div>
+                                    <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">System Logs</div>
+                                </div>
+                                <div style="background:rgba(0,0,0,0.2);border-radius:14px;padding:20px;border:1px solid var(--glass-border);text-align:center;">
+                                    <i class="fas fa-user-clock" style="color:#10B981;font-size:24px;margin-bottom:10px;display:block;"></i>
+                                    <div id="fb-stat-staff" style="font-size:24px;font-weight:900;color:#10B981;">—</div>
+                                    <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">Staff Registered</div>
                                 </div>
                             </div>
                         </div>
@@ -2211,6 +2400,9 @@
             } else if (sectionId === 'developer') {
                 title.innerText = 'Developer Operations';
                 subtitle.innerText = 'System health & logging utility';
+                // Force display since inline styles can override class rules
+                const devSection = document.getElementById('developer-section');
+                if (devSection) devSection.style.display = 'block';
                 const sessionKey = 'dinepro_dev_auth';
                 if (sessionStorage.getItem(sessionKey) === 'true') {
                     document.getElementById('dev-password-gate').style.display = 'none';
@@ -2842,7 +3034,308 @@
             }
         }
 
-        // Forms Management
+        // ═══ AUDIT LOG ═══
+        function logAuditEvent(eventType, status) {
+            if (!window.firebaseDB) return;
+            const auditRef = window.firebaseRef(window.firebaseDB, 'dinepro/auditLog');
+            window.firebasePush(auditRef, {
+                event: eventType,
+                status: status,
+                userAgent: navigator.userAgent.substring(0, 80),
+                timestamp: Date.now()
+            });
+        }
+
+        function loadAuditLog() {
+            if (!window.firebaseDB) return;
+            const auditRef = window.firebaseRef(window.firebaseDB, 'dinepro/auditLog');
+            window.firebaseOnValue(auditRef, (snapshot) => {
+                const data = snapshot.val();
+                const list = document.getElementById('audit-log-list');
+                const noInfo = document.getElementById('no-audit-info');
+                const badge = document.getElementById('failed-login-badge');
+                const failedDisplay = document.getElementById('failed-attempts-display');
+                if (!list) return;
+                list.innerHTML = '';
+                if (!data) { if(noInfo) noInfo.style.display = 'block'; return; }
+                if(noInfo) noInfo.style.display = 'none';
+                const entries = Object.entries(data).reverse().slice(0, 50);
+                let failedCount = 0;
+                entries.forEach(([key, log]) => {
+                    if (log.status === 'FAILED') failedCount++;
+                    const statusColor = log.status === 'SUCCESS' ? '#10B981' : log.status === 'LOGOUT' ? '#F59E0B' : '#EF4444';
+                    const tr = document.createElement('tr');
+                    tr.style.borderTop = '1px solid rgba(255,255,255,0.06)';
+                    tr.innerHTML = `
+                        <td style="padding:12px 15px;font-size:12px;color:#94a3b8;">${new Date(log.timestamp).toLocaleString()}</td>
+                        <td style="padding:12px 15px;font-weight:700;color:#fff;">${log.event}</td>
+                        <td style="padding:12px 15px;"><span style="background:${statusColor}1a;color:${statusColor};border:1px solid ${statusColor}33;padding:3px 10px;border-radius:10px;font-size:10px;font-weight:900;">${log.status}</span></td>
+                        <td style="padding:12px 15px;font-size:11px;color:#64748b;max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${log.userAgent}</td>`;
+                    list.appendChild(tr);
+                });
+                if(badge) badge.innerText = `${failedCount} Failed`;
+                if(failedDisplay) failedDisplay.innerText = failedCount;
+            });
+        }
+
+        function clearAuditLog() {
+            if (confirm('Clear all audit log entries from Firebase?')) {
+                window.firebaseRemove(window.firebaseRef(window.firebaseDB, 'dinepro/auditLog'));
+                window.logEvent('Audit log cleared by Admin', 'warning');
+            }
+        }
+
+        function clearFailedAttempts() {
+            if (confirm('Clear failed login count?')) {
+                document.getElementById('failed-attempts-display').innerText = '0';
+                document.getElementById('failed-login-badge').innerText = '0 Failed';
+                showToast('Failed attempts record cleared', 'fas fa-check');
+            }
+        }
+
+        // ═══ EXPORT DATABASE ═══
+        function exportFirebaseData() {
+            if (!window.firebaseDB) return showToast('Firebase not ready', 'fas fa-exclamation-triangle');
+            showToast('Collecting data from Firebase...', 'fas fa-spinner');
+            const rootRef = window.firebaseRef(window.firebaseDB, 'dinepro');
+            window.firebaseOnValue(rootRef, (snapshot) => {
+                const data = snapshot.val();
+                if (!data) return showToast('No data found to export', 'fas fa-info-circle');
+                const json = JSON.stringify(data, null, 2);
+                const blob = new Blob([json], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `dinepro-backup-${new Date().toISOString().split('T')[0]}.json`;
+                a.click();
+                URL.revokeObjectURL(url);
+                window.logEvent('Database exported by Admin', 'info');
+                showToast('Database exported successfully!', 'fas fa-file-export');
+            }, { onlyOnce: true });
+        }
+
+        // ═══ TEST NOTIFICATION ═══
+        function sendTestNotification() {
+            if (Notification.permission === 'granted') {
+                new Notification('DinePro Dev Test 🔔', {
+                    body: 'Notification system is working correctly!',
+                    icon: 'logo.png.png'
+                });
+                window.logEvent('Test notification sent', 'info');
+                showToast('Test notification sent!', 'fas fa-bell');
+            } else if (Notification.permission === 'default') {
+                Notification.requestPermission().then(p => {
+                    if (p === 'granted') sendTestNotification();
+                    else showToast('Notification permission denied', 'fas fa-times');
+                });
+            } else {
+                showToast('Notifications are blocked in browser settings', 'fas fa-ban');
+            }
+        }
+
+        // ═══ CACHE CLEANER ═══
+        function clearSiteCache() {
+            if (!confirm('Clear all browser caches and service worker data?')) return;
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.getRegistrations().then(regs => {
+                    regs.forEach(reg => reg.unregister());
+                });
+            }
+            if ('caches' in window) {
+                caches.keys().then(names => names.forEach(name => caches.delete(name)));
+            }
+            window.logEvent('Site cache cleared by Admin', 'warning');
+            showToast('Cache cleared! Page will reload in 3s...', 'fas fa-broom');
+            setTimeout(() => location.reload(true), 3000);
+        }
+
+        // ═══ SITE HEALTH CHECK ═══
+        function runSiteHealthCheck() {
+            showToast('Running site health checks...', 'fas fa-heartbeat');
+            const setStatus = (key, ok, msg) => {
+                const el = document.querySelector(`.health-item[data-key="${key}"] .health-status`);
+                const card = document.querySelector(`.health-item[data-key="${key}"]`);
+                if (!el || !card) return;
+                const color = ok ? '#10B981' : '#EF4444';
+                const icon = ok ? '✅' : '❌';
+                el.innerHTML = `<span style="color:${color};font-weight:700;">${icon} ${msg}</span>`;
+                card.style.borderColor = ok ? 'rgba(16,185,129,0.4)' : 'rgba(239,68,68,0.4)';
+            };
+
+            // Firebase check
+            if (window.firebaseDB) { setStatus('firebase', true, 'Connected'); }
+            else { setStatus('firebase', false, 'Disconnected'); }
+
+            // Notifications
+            setStatus('notifications', Notification.permission === 'granted', Notification.permission === 'granted' ? 'Enabled' : `Status: ${Notification.permission}`);
+
+            // Service Worker
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.getRegistrations().then(regs => {
+                    setStatus('sw', regs.length > 0, regs.length > 0 ? `Active (${regs.length})` : 'Not registered');
+                });
+            } else { setStatus('sw', false, 'Not supported'); }
+
+            // Local Storage
+            try { localStorage.setItem('health_test', '1'); localStorage.removeItem('health_test'); setStatus('storage', true, 'Accessible'); }
+            catch (e) { setStatus('storage', false, 'Blocked'); }
+
+            // Network
+            setStatus('online', navigator.onLine, navigator.onLine ? 'Online' : 'Offline');
+
+            // Formspree
+            fetch('https://formspree.io/f/mbdaqjyv', { method: 'HEAD', mode: 'no-cors' })
+                .then(() => setStatus('formspree', true, 'Reachable'))
+                .catch(() => setStatus('formspree', false, 'Unreachable'));
+
+            window.logEvent('Site health check run by Admin', 'info');
+        }
+
+        // ═══ MAINTENANCE MODE ═══
+        function toggleMaintenanceMode() {
+            if (!window.firebaseDB) return;
+            const ref = window.firebaseRef(window.firebaseDB, 'dinepro/settings/maintenance');
+            window.firebaseOnValue(ref, (snapshot) => {
+                const isOn = snapshot.val() === true;
+                window.firebaseSet(ref, !isOn);
+                updateMaintenanceUI(!isOn);
+                window.logEvent(`Maintenance mode ${!isOn ? 'ENABLED' : 'DISABLED'}`, !isOn ? 'warning' : 'info');
+                showToast(`Maintenance mode ${!isOn ? 'ENABLED' : 'DISABLED'}`, 'fas fa-hard-hat');
+            }, { onlyOnce: true });
+        }
+
+        function updateMaintenanceUI(isOn) {
+            const card = document.getElementById('maintenance-status-card');
+            const icon = document.getElementById('maintenance-icon');
+            const label = document.getElementById('maintenance-label');
+            const btn = document.getElementById('maintenance-toggle-btn');
+            if (!card) return;
+            if (isOn) {
+                card.style.background = 'rgba(239,68,68,0.08)';
+                card.style.borderColor = 'rgba(239,68,68,0.4)';
+                icon.innerText = '🚧';
+                label.style.color = '#EF4444';
+                label.innerText = 'MAINTENANCE MODE ON';
+                if(btn) { btn.style.background = 'linear-gradient(135deg,#10B981,#059669)'; btn.innerHTML = '<i class="fas fa-check-circle"></i> DISABLE MAINTENANCE'; }
+            } else {
+                card.style.background = 'rgba(16,185,129,0.08)';
+                card.style.borderColor = 'rgba(16,185,129,0.3)';
+                icon.innerText = '✅';
+                label.style.color = '#10B981';
+                label.innerText = 'SITE ONLINE';
+                if(btn) { btn.style.background = 'linear-gradient(135deg,#EF4444,#DC2626)'; btn.innerHTML = '<i class="fas fa-hard-hat"></i> ENABLE MAINTENANCE MODE'; }
+            }
+        }
+
+        function loadMaintenanceStatus() {
+            if (!window.firebaseDB) return;
+            const ref = window.firebaseRef(window.firebaseDB, 'dinepro/settings/maintenance');
+            window.firebaseOnValue(ref, (snapshot) => { updateMaintenanceUI(snapshot.val() === true); });
+        }
+
+        // ═══ SECURITY / PASSWORD CHANGE ═══
+        function changeAdminPassword() {
+            const current = document.getElementById('sec-current-pw').value;
+            const newPw = document.getElementById('sec-new-pw').value;
+            const confirm_pw = document.getElementById('sec-confirm-pw').value;
+            const msg = document.getElementById('pw-change-msg');
+            const CURRENT_PASSWORD = 'dinepro2026';
+
+            msg.style.display = 'block';
+            if (current !== CURRENT_PASSWORD) { msg.style.color = '#EF4444'; msg.innerText = '❌ Current password is incorrect.'; return; }
+            if (newPw.length < 6) { msg.style.color = '#EF4444'; msg.innerText = '❌ New password must be at least 6 characters.'; return; }
+            if (newPw !== confirm_pw) { msg.style.color = '#EF4444'; msg.innerText = '❌ Passwords do not match.'; return; }
+
+            // Save to Firebase for reference (admin is notified)
+            if (window.firebaseDB) {
+                window.firebaseSet(window.firebaseRef(window.firebaseDB, 'dinepro/settings/adminPasswordHint'), newPw.substring(0,3) + '***');
+                window.logEvent(`Admin password changed`, 'warning');
+            }
+            msg.style.color = '#10B981';
+            msg.innerText = '✅ Password noted! Update the PASSWORD constant in admin.html code for permanent change.';
+            document.getElementById('sec-current-pw').value = '';
+            document.getElementById('sec-new-pw').value = '';
+            document.getElementById('sec-confirm-pw').value = '';
+        }
+
+        // ═══ DEV NOTES SCRATCHPAD ═══
+        function saveDevNotes() {
+            if (!window.firebaseDB) return;
+            const notes = document.getElementById('dev-notes-area').value;
+            const statusEl = document.getElementById('notes-save-status');
+            window.firebaseSet(window.firebaseRef(window.firebaseDB, 'dinepro/devNotes'), { content: notes, savedAt: Date.now() });
+            if(statusEl) { statusEl.style.color = '#10B981'; statusEl.innerText = `✅ Saved at ${new Date().toLocaleTimeString()}`; }
+            showToast('Dev notes saved!', 'fas fa-save');
+        }
+
+        function loadDevNotes() {
+            if (!window.firebaseDB) return;
+            window.firebaseOnValue(window.firebaseRef(window.firebaseDB, 'dinepro/devNotes'), (snapshot) => {
+                const data = snapshot.val();
+                const area = document.getElementById('dev-notes-area');
+                const statusEl = document.getElementById('notes-save-status');
+                if (data && area) {
+                    area.value = data.content || '';
+                    if(statusEl) statusEl.innerText = `Last saved: ${new Date(data.savedAt).toLocaleString()}`;
+                }
+            }, { onlyOnce: true });
+        }
+
+        // ═══ FIREBASE USAGE MONITOR ═══
+        function refreshFirebaseStats() {
+            if (!window.firebaseDB) return;
+            const paths = [
+                { path: 'dinepro/submissions', elId: 'fb-stat-submissions' },
+                { path: 'dinepro/bookings', elId: 'fb-stat-bookings' },
+                { path: 'dinepro/bugs', elId: 'fb-stat-bugs' },
+                { path: 'dinepro/changes', elId: 'fb-stat-changes' },
+                { path: 'dinepro/logs', elId: 'fb-stat-logs' },
+                { path: 'dinepro/staff', elId: 'fb-stat-staff' }
+            ];
+            paths.forEach(({ path, elId }) => {
+                window.firebaseOnValue(window.firebaseRef(window.firebaseDB, path), (snapshot) => {
+                    const el = document.getElementById(elId);
+                    if (el) el.innerText = snapshot.val() ? Object.keys(snapshot.val()).length : 0;
+                }, { onlyOnce: true });
+            });
+            showToast('Firebase stats refreshed!', 'fas fa-database');
+        }
+
+        // ═══ DEVICE PREVIEW ═══
+        function setDevicePreview(device) {
+            const url = window.location.href.replace('/admin.html', '/index.html');
+            const sizes = { mobile: '375,812', tablet: '768,1024', desktop: '1440,900' };
+            const [w, h] = (sizes[device] || sizes.desktop).split(',');
+            const win = window.open(url, '_blank', `width=${w},height=${h},resizable=yes`);
+            if (!win) showToast('Allow popups to use preview!', 'fas fa-exclamation-triangle');
+            else window.logEvent(`Device preview: ${device} (${w}x${h})`, 'info');
+        }
+
+        // ═══ EXTENDED loadDeveloperData ═══
+        function loadDeveloperData() {
+            if (!window.firebaseDB) return;
+            loadSystemLogs();
+            loadBugReports();
+            loadChangeLogs();
+            loadAuditLog();
+            loadMaintenanceStatus();
+            loadDevNotes();
+            refreshFirebaseStats();
+            runSiteHealthCheck();
+        }
+
+        // ═══ PATCH LOGIN TO LOG AUDIT ═══
+        const _origCheckPassword = checkPassword;
+        window.checkPassword = function() {
+            const val = document.getElementById('password')?.value;
+            const isCorrect = val === 'dinepro2026';
+            if (window.firebaseDB && window.firebasePush) {
+                logAuditEvent('Admin Login Attempt', isCorrect ? 'SUCCESS' : 'FAILED');
+            }
+            _origCheckPassword();
+        };
+
+
         document.getElementById('bugReportForm')?.addEventListener('submit', function (e) {
             e.preventDefault();
             const bugData = {
