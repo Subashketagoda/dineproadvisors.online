@@ -11,7 +11,7 @@
     --light-gray: #F8F4F0;
     /* Cream Dust */
     --white: #ffffff;
-    --glass: rgba(10, 14, 23, 0.8);
+    --glass: rgba(255, 255, 255, 0.8);
     --glass-border: rgba(255, 255, 255, 0.1);
     --transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
 }
@@ -675,12 +675,12 @@ header .container {
     right: 0;
     width: 350px;
     max-width: calc(100vw - 20px);
-    background: rgba(10, 14, 23, 0.95) !important;
+    background: rgba(255, 255, 255, 0.9) !important;
     backdrop-filter: blur(25px);
     -webkit-backdrop-filter: blur(25px);
     border-radius: 15px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6) !important;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 10px 40px rgba(93, 58, 26, 0.15) !important;
+    border: 1px solid rgba(93, 58, 26, 0.1);
     display: none;
     flex-direction: column;
     overflow: hidden;
@@ -1042,7 +1042,7 @@ header .container {
 .page-header h1 {
     font-size: 56px;
     font-weight: 800;
-    color: var(--white);
+    color: var(--primary-color);
     margin-bottom: 15px;
     text-transform: uppercase;
     letter-spacing: 2px;
@@ -1056,7 +1056,7 @@ header .container {
 }
 
 .breadcrumb a {
-    color: var(--white);
+    color: var(--primary-color);
     text-decoration: none;
     transition: var(--transition);
 }
@@ -1177,11 +1177,11 @@ header .container {
 
 /* Footer Modern Layout */
 footer {
-    background: linear-gradient(rgba(45, 27, 13, 0.95), rgba(45, 27, 13, 0.95)), url('hero.jpg');
+    background: linear-gradient(rgba(248, 244, 240, 0.95), rgba(248, 244, 240, 0.95)), url('hero.jpg');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
-    color: #d7ccc8;
+    color: var(--text-color);
     padding: 80px 0 0;
     border-top: 1px solid var(--glass-border);
 }
@@ -1317,10 +1317,10 @@ footer {
 }
 
 .footer-bottom {
-    background: #1a0f08;
+    background: var(--white);
     padding: 25px 0;
     text-align: center;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    border-top: 1px solid rgba(93, 58, 26, 0.05);
 }
 
 .footer-bottom p {

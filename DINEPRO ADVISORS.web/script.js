@@ -4,6 +4,7 @@ window.addEventListener('load', () => {
     if (preloader) {
         setTimeout(() => {
             preloader.classList.add('fade-out');
+            if (window.logEvent) window.logEvent('Public Website Loaded', 'info');
         }, 1000); // 1 second delay for minimum visibility
     }
 });
@@ -370,6 +371,8 @@ dropdowns.forEach(dropdown => {
     });
 });
 
+const contactForm = document.getElementById('contactForm'); // Assuming contactForm is defined somewhere above or globally accessible
+
 if (contactForm) {
     contactForm.addEventListener('submit', function (e) {
         e.preventDefault();
@@ -413,6 +416,9 @@ if (contactForm) {
             }
         })
         .then(response => {
+            if (response.ok) {
+                if (window.logEvent) window.logEvent(`New Contact Form Submission: ${formData.get('name')}`, 'info');
+            }
             if (submitBtn) {
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = 'SUBMIT NOW';

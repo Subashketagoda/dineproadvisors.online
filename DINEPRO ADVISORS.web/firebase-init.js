@@ -27,6 +27,19 @@ window.firebaseSet = set;
 window.firebaseUpdate = update;
 window.firebaseRemove = remove;
 
+// Global Logging Function for Developer Options
+window.logEvent = (message, type = 'info') => {
+    if (window.firebaseDB && window.firebaseRef && window.firebasePush) {
+        const logsRef = window.firebaseRef(window.firebaseDB, 'dinepro/logs');
+        window.firebasePush(logsRef, {
+            message,
+            type,
+            timestamp: Date.now()
+        });
+    }
+}
+
 // Notify that firebase is ready
 window.dispatchEvent(new Event('firebaseLoaded'));
 console.log("Firebase Global Sync Initialized");
+logEvent('System Initialized', 'info');
