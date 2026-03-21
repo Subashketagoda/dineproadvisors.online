@@ -1134,7 +1134,8 @@
         /* Mobile Optimization Architecture - Comprehensive Polish */
         @media (max-width: 1024px) {
             .admin-layout {
-                display: block; /* Simpler than grid for mobile overlap */
+                display: block;
+                /* Simpler than grid for mobile overlap */
             }
 
             .admin-sidebar {
@@ -1177,7 +1178,7 @@
                 cursor: pointer;
                 box-shadow: 0 10px 25px rgba(166, 121, 10, 0.4);
                 font-size: 20px;
-                border: 2px solid rgba(255,255,255,0.1);
+                border: 2px solid rgba(255, 255, 255, 0.1);
             }
 
             /* Hide menu icon during login OR when sidebar is open */
@@ -1262,10 +1263,12 @@
             }
 
             table {
-                min-width: 700px; /* Force scroll for data safety */
+                min-width: 700px;
+                /* Force scroll for data safety */
             }
 
-            th, td {
+            th,
+            td {
                 padding: 12px 15px;
                 font-size: 13px;
             }
@@ -1639,478 +1642,728 @@
 
                                 <!-- Column 2: Activity & Monitoring -->
                                 <div>
-                                <div class="admin-card" style="margin-bottom: 30px;">
-                                    <div
-                                        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
-                                        <h3 style="margin: 0; font-size: 18px; color: #10B981; font-weight: 800;">
-                                            Real-time Presence</h3>
+                                    <div class="admin-card" style="margin-bottom: 30px;">
                                         <div
-                                            style="font-size: 11px; font-weight: 900; background: rgba(16,185,129,0.1); color: #10B981; padding: 6px 15px; border-radius: 50px; border: 1px solid rgba(16,185,129,0.2);">
-                                            <span id="staff-on-duty-count-hub">0</span> ACTIVE
+                                            style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
+                                            <h3 style="margin: 0; font-size: 18px; color: #10B981; font-weight: 800;">
+                                                Real-time Presence</h3>
+                                            <div
+                                                style="font-size: 11px; font-weight: 900; background: rgba(16,185,129,0.1); color: #10B981; padding: 6px 15px; border-radius: 50px; border: 1px solid rgba(16,185,129,0.2);">
+                                                <span id="staff-on-duty-count-hub">0</span> ACTIVE
+                                            </div>
+                                        </div>
+                                        <div id="admin-staff-logs-hub" class="admin-chat-logs-container"
+                                            style="font-size: 13px; max-height: 300px; overflow-y: auto; border-radius: 15px;">
                                         </div>
                                     </div>
-                                    <div id="admin-staff-logs-hub" class="admin-chat-logs-container"
-                                        style="font-size: 13px; max-height: 300px; overflow-y: auto; border-radius: 15px;">
-                                    </div>
-                                </div>
 
-                                <div class="admin-card">
-                                    <div
-                                        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
-                                        <h3 style="margin: 0; font-size: 18px; color: var(--text-main); font-weight: 800;">
-                                            Operational Reports</h3>
+                                    <div class="admin-card">
                                         <div
-                                            style="font-size: 11px; font-weight: 800; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px;">
-                                            TODAY</div>
+                                            style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
+                                            <h3
+                                                style="margin: 0; font-size: 18px; color: var(--text-main); font-weight: 800;">
+                                                Operational Reports</h3>
+                                            <div
+                                                style="font-size: 11px; font-weight: 800; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px;">
+                                                TODAY</div>
+                                        </div>
+                                        <div id="admin-staff-reports-hub"
+                                            style="font-size: 13px; max-height: 500px; overflow-y: auto;"></div>
                                     </div>
-                                    <div id="admin-staff-reports-hub"
-                                        style="font-size: 13px; max-height: 500px; overflow-y: auto;"></div>
                                 </div>
-                            </div>
-                        </div> <!-- Close Grid (1564) -->
-                    </div> <!-- Close Staff Hub Section (1563) -->
+                        </div> <!-- Close Grid -->
+                    </div> <!-- Close Staff Hub Section -->
 
                     <!-- Section: Broadcast Hub (Standalone) -->
-                    <div id="broadcast-section" class="admin-view">
-                    <div class="admin-card" style="max-width: 1000px; margin: 0 auto; padding: 40px;">
-                        <div
-                            style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
-                            <h3 style="margin: 0; font-size: 24px; color: var(--admin-accent); font-weight: 800;">
-                                Broadcast Hub</h3>
-                            <select id="admin-chat-level-select" onchange="loadAdminChat()" class="form-control"
-                                style="width: auto; padding: 8px 20px; height: 45px; min-width: 200px; font-size: 14px; font-weight: 700; border-color: var(--admin-accent); border-radius: 15px;">
-                                <option value="level1">General Staff Channel</option>
-                                <option value="level2">Management Channel</option>
-                                <option value="level3">Executive Board Only</option>
-                            </select>
-                        </div>
-                        <div id="admin-chat-area"
-                            style="height: 500px; overflow-y: auto; border-radius: 25px; padding: 30px; margin-bottom: 25px; display: flex; flex-direction: column; gap: 18px; scroll-behavior: smooth; background: var(--chat-bg); border: 1px solid var(--glass-border);">
-                            <!-- Messages will appear here -->
-                        </div>
-                        <div class="admin-chat-input-wrapper"
-                            style="display: flex; gap: 15px; padding: 15px; border-radius: 100px; background: var(--chat-wrapper); border: 1px solid var(--glass-border);">
-                            <input type="text" id="admin-chat-input"
-                                placeholder="Type a broadcast message to the team..." class="form-control"
-                                style="border: none !important; background: transparent !important; padding-left: 25px; font-weight: 500; font-size: 15px; flex-grow: 1; color: var(--input-text);">
-                            <button onclick="sendAdminChatMessage()" class="btn-accent"
-                                style="width: 55px; height: 55px; padding: 0; border-radius: 50%; min-width: 55px; justify-content: center;">
-                                <i class="fas fa-paper-plane" style="font-size: 18px;"></i>
-                            </button>
-                        </div>
-                    </div> <!-- Close Broadcast Hub Section -->
-
-                    <!-- Section: Analytics -->
-                    <div id="analytics-section" class="admin-view">
-                    <div class="dashboard-grid" style="grid-template-columns: 1fr;">
-                        <div class="stat-card" style="padding: 40px;">
-                            <div
-                                style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
-                                <div>
-                                    <h3 style="margin: 0; font-size: 20px; color: var(--text-main);">Visitor Traffic
-                                        Analytics</h3>
-                                    <p style="color: var(--text-muted); font-size: 13px; margin: 5px 0 0 0;">Daily
-                                        unique
-                                        visits over the last 7 days</p>
+                        <div id="broadcast-section" class="admin-view">
+                            <div class="admin-card" style="max-width: 1000px; margin: 0 auto; padding: 40px;">
+                                <div
+                                    style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+                                    <h3
+                                        style="margin: 0; font-size: 24px; color: var(--admin-accent); font-weight: 800;">
+                                        Broadcast Hub</h3>
+                                    <select id="admin-chat-level-select" onchange="loadAdminChat()" class="form-control"
+                                        style="width: auto; padding: 8px 20px; height: 45px; min-width: 200px; font-size: 14px; font-weight: 700; border-color: var(--admin-accent); border-radius: 15px;">
+                                        <option value="level1">General Staff Channel</option>
+                                        <option value="level2">Management Channel</option>
+                                        <option value="level3">Executive Board Only</option>
+                                    </select>
                                 </div>
-                                <div style="text-align: right;">
-                                    <div id="traffic-percent"
-                                        style="color: #059669; font-weight: 700; font-size: 14px;">+12% <i
-                                            class="fas fa-arrow-up"></i></div>
-                                    <div style="font-size: 11px; opacity: 0.5;">VS LAST WEEK</div>
+                                <div id="admin-chat-area"
+                                    style="height: 500px; overflow-y: auto; border-radius: 25px; padding: 30px; margin-bottom: 25px; display: flex; flex-direction: column; gap: 18px; scroll-behavior: smooth; background: var(--chat-bg); border: 1px solid var(--glass-border);">
+                                    <!-- Messages will appear here -->
                                 </div>
-                            </div>
-                            <div style="height: 350px; width: 100%; position: relative;">
-                                <canvas id="trafficChart"></canvas>
-                            </div>
-                        </div>
-                    </div>
+                                <div class="admin-chat-input-wrapper"
+                                    style="display: flex; gap: 15px; padding: 15px; border-radius: 100px; background: var(--chat-wrapper); border: 1px solid var(--glass-border);">
+                                    <input type="text" id="admin-chat-input"
+                                        placeholder="Type a broadcast message to the team..." class="form-control"
+                                        style="border: none !important; background: transparent !important; padding-left: 25px; font-weight: 500; font-size: 15px; flex-grow: 1; color: var(--input-text);">
+                                    <button onclick="sendAdminChatMessage()" class="btn-accent"
+                                        style="width: 55px; height: 55px; padding: 0; border-radius: 50%; min-width: 55px; justify-content: center;">
+                                        <i class="fas fa-paper-plane" style="font-size: 18px;"></i>
+                                    </button>
+                                </div>
+                            </div> <!-- Close Broadcast Hub admin-card -->
+                        </div> <!-- Close broadcast-section -->
 
-                    <div class="dashboard-grid" style="margin-top: 30px;">
-                        <div class="stat-card">
-                            <div class="stat-icon" style="background: rgba(37,99,235,0.1); color: #2563eb;"><i
-                                    class="fas fa-search"></i></div>
-                            <div class="stat-info">
-                                <h3>Avg. Session Time</h3>
-                                <div class="value" id="stat-avg-session">0m 0s</div>
-                            </div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-icon"
-                                style="background: rgba(166,121,10,0.1); color: var(--accent-color);"><i
-                                    class="fas fa-bullseye"></i></div>
-                            <div class="stat-info">
-                                <h3>Conversion Rate</h3>
-                                <div class="value" id="stat-conv-rate">0.0%</div>
-                            </div>
-                        </div>
-                    </div>
-                </div> <!-- Close Analytics Section -->
-
-                <!-- Section: Developer Options -->
-                <div id="developer-section" class="admin-view">
-                    <!-- Emergency fallback indicator -->
-                    <p id="dev-section-confirm" style="color: #10B981 !important; font-weight: 900; font-size: 16px; padding: 10px; background: rgba(16,185,129,0.1); border-radius: 10px; border: 2px solid #10B981; display: block !important;">✅ Developer Section is Rendering</p>
-
-                    <!-- IN-PAGE Password Gate (shown when not authenticated) -->
-                    <div id="dev-password-gate" style="display: flex !important; justify-content: center; align-items: center; min-height: 60vh; width: 100%;">
-                        <div style="background: var(--admin-card); border: 1px solid var(--glass-border); border-radius: 30px; padding: 50px 40px; text-align: center; max-width: 420px; width: 100%; box-shadow: 0 20px 60px rgba(0,0,0,0.4);">
-                            <div style="width: 70px; height: 70px; background: rgba(16,185,129,0.1); border-radius: 20px; display: flex; align-items: center; justify-content: center; margin: 0 auto 25px;">
-                                <i class="fas fa-terminal" style="font-size: 28px; color: #10B981;"></i>
-                            </div>
-                            <h3 style="font-size: 22px; font-weight: 800; margin-bottom: 10px;">Developer Access</h3>
-                            <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 30px;">Enter developer password to unlock the console.</p>
-                            <input type="password" id="dev-pw-input" placeholder="Developer Password" style="width: 100%; padding: 16px; background: var(--input-bg); border: 1px solid var(--glass-border); border-radius: 15px; color: var(--input-text); font-size: 16px; margin-bottom: 15px; text-align: center; letter-spacing: 3px;" onkeydown="if(event.key==='Enter') checkDevPass()">
-                            <p id="dev-pw-error" style="color: #ef4444; font-size: 13px; display: none; margin-bottom: 15px;">Incorrect password. Try again.</p>
-                            <button onclick="checkDevPass()" style="width: 100%; padding: 16px; background: linear-gradient(135deg, #10B981, #059669); border: none; border-radius: 15px; color: white; font-weight: 800; font-size: 15px; cursor: pointer;">UNLOCK CONSOLE</button>
-                        </div>
-                    </div>
-
-                    <!-- Actual Dev Console (hidden until authenticated) -->
-                    <div id="dev-console-content" style="display: none;">
-
-                        <!-- Header Banner -->
-                        <div style="background: linear-gradient(135deg, rgba(16,185,129,0.15), rgba(37,99,235,0.1)); border: 1px solid rgba(16,185,129,0.25); padding: 20px 30px; border-radius: 20px; margin-bottom: 30px; display: flex; align-items: center; gap: 15px;">
-                            <div style="width: 48px; height: 48px; background: rgba(16,185,129,0.2); border-radius: 14px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-                                <i class="fas fa-terminal" style="color: #10B981; font-size: 20px;"></i>
-                            </div>
-                            <div>
-                                <div style="font-weight: 900; font-size: 15px; color: #10B981; letter-spacing: 1px;">DEVELOPER CONSOLE — ONLINE & SYNCHRONIZED</div>
-                                <div style="font-size: 12px; color: var(--text-muted); margin-top: 3px;">Firebase Realtime DB connected · All logs persisted</div>
-                            </div>
-                            <div style="margin-left: auto; display: flex; gap: 8px; align-items: center;">
-                                <div style="width: 10px; height: 10px; background: #10B981; border-radius: 50%; box-shadow: 0 0 8px #10B981; animation: pulse 2s infinite;"></div>
-                                <span style="font-size: 11px; color: #10B981; font-weight: 800;">LIVE</span>
-                            </div>
-                        </div>
-
-                        <!-- Summary Cards -->
-                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px; margin-bottom: 30px;">
-                            <div class="stat-card" style="padding: 22px; background: rgba(16,185,129,0.06); border-color: rgba(16,185,129,0.2);">
-                                <div class="stat-icon" style="width: 44px; height: 44px; font-size: 18px; background: rgba(16,185,129,0.15); color: #10B981; margin-right: 15px; flex-shrink: 0;"><i class="fas fa-check-circle"></i></div>
-                                <div><div style="font-size: 10px; color: var(--text-muted); font-weight: 900; letter-spacing: 1px; text-transform: uppercase;">System Status</div><div style="font-weight: 900; color: #10B981; font-size: 15px;">OPERATIONAL</div></div>
-                            </div>
-                            <div class="stat-card" style="padding: 22px; background: rgba(239,68,68,0.06); border-color: rgba(239,68,68,0.2);">
-                                <div class="stat-icon" style="width: 44px; height: 44px; font-size: 18px; background: rgba(239,68,68,0.15); color: #EF4444; margin-right: 15px; flex-shrink: 0;"><i class="fas fa-bug"></i></div>
-                                <div><div style="font-size: 10px; color: var(--text-muted); font-weight: 900; letter-spacing: 1px; text-transform: uppercase;">Active Bugs</div><div style="font-weight: 900; color: #EF4444; font-size: 15px;" id="dev-bug-count">0 Reports</div></div>
-                            </div>
-                            <div class="stat-card" style="padding: 22px; background: rgba(37,99,235,0.06); border-color: rgba(37,99,235,0.2);">
-                                <div class="stat-icon" style="width: 44px; height: 44px; font-size: 18px; background: rgba(37,99,235,0.15); color: #2563EB; margin-right: 15px; flex-shrink: 0;"><i class="fas fa-code-branch"></i></div>
-                                <div><div style="font-size: 10px; color: var(--text-muted); font-weight: 900; letter-spacing: 1px; text-transform: uppercase;">Changes Logged</div><div style="font-weight: 900; color: #2563EB; font-size: 15px;" id="dev-change-count">0 Entries</div></div>
-                            </div>
-                        </div>
-
-                        <!-- Two Column: Logs + Forms -->
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin-bottom: 30px;">
-
-                            <!-- Live Activity Logs -->
-                            <div class="stat-card" style="flex-direction: column; align-items: stretch; padding: 25px; min-height: 500px; display: flex;">
-                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                                    <div style="display: flex; align-items: center; gap: 10px;">
-                                        <div style="width: 36px; height: 36px; background: rgba(16,185,129,0.15); border-radius: 10px; display: flex; align-items: center; justify-content: center;">
-                                            <i class="fas fa-stream" style="color: #10B981; font-size: 14px;"></i>
+                        <!-- Section: Analytics -->
+                        <div id="analytics-section" class="admin-view">
+                                <div class="dashboard-grid" style="grid-template-columns: 1fr;">
+                                    <div class="stat-card" style="padding: 40px;">
+                                        <div
+                                            style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+                                            <div>
+                                                <h3 style="margin: 0; font-size: 20px; color: var(--text-main);">Visitor
+                                                    Traffic
+                                                    Analytics</h3>
+                                                <p
+                                                    style="color: var(--text-muted); font-size: 13px; margin: 5px 0 0 0;">
+                                                    Daily
+                                                    unique
+                                                    visits over the last 7 days</p>
+                                            </div>
+                                            <div style="text-align: right;">
+                                                <div id="traffic-percent"
+                                                    style="color: #059669; font-weight: 700; font-size: 14px;">+12% <i
+                                                        class="fas fa-arrow-up"></i></div>
+                                                <div style="font-size: 11px; opacity: 0.5;">VS LAST WEEK</div>
+                                            </div>
                                         </div>
-                                        <h3 style="margin: 0; font-size: 16px; font-weight: 800;">Live Activity Logs</h3>
+                                        <div style="height: 350px; width: 100%; position: relative;">
+                                            <canvas id="trafficChart"></canvas>
+                                        </div>
                                     </div>
-                                    <button onclick="clearSystemLogs()" style="background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.2); color: #EF4444; padding: 6px 14px; border-radius: 8px; cursor: pointer; font-size: 11px; font-weight: 800;"><i class="fas fa-trash-alt"></i> Clear</button>
-                                </div>
-                                <div id="system-logs-container" style="flex-grow: 1; background: rgba(0,0,0,0.35); border-radius: 15px; padding: 20px; font-family: 'Consolas','Monaco',monospace; font-size: 12px; line-height: 1.7; overflow-y: auto; border: 1px solid var(--glass-border); max-height: 420px;">
-                                    <div style="color: #64748b;">[SYSTEM] Waiting for events...</div>
-                                </div>
-                            </div>
-
-                            <!-- Bug Report + Change Log Tabs -->
-                            <div class="stat-card" style="flex-direction: column; align-items: stretch; padding: 0; overflow: hidden;">
-                                <!-- Tab switcher -->
-                                <div style="display: flex; border-bottom: 1px solid var(--glass-border);">
-                                    <button id="dev-tab-bugs" onclick="switchDevTab('bugs')" style="flex: 1; padding: 18px 10px; border: none; background: rgba(239,68,68,0.1); color: #EF4444; font-weight: 800; font-size: 12px; cursor: pointer; border-right: 1px solid var(--glass-border); letter-spacing: 0.5px;"><i class="fas fa-bug"></i> REPORT BUG</button>
-                                    <button id="dev-tab-changes" onclick="switchDevTab('changes')" style="flex: 1; padding: 18px 10px; border: none; background: transparent; color: #94a3b8; font-weight: 800; font-size: 12px; cursor: pointer; letter-spacing: 0.5px;"><i class="fas fa-code-branch"></i> LOG CHANGE</button>
                                 </div>
 
-                                <!-- Bug Report Form -->
-                                <div id="dev-pane-bugs" style="padding: 25px;">
-                                    <form id="bugReportForm">
-                                        <div class="admin-form-group">
-                                            <label>Issue Title</label>
-                                            <input type="text" id="devBugTitle" placeholder="e.g. Login button not responding" required>
+                                <div class="dashboard-grid" style="margin-top: 30px;">
+                                    <div class="stat-card">
+                                        <div class="stat-icon" style="background: rgba(37,99,235,0.1); color: #2563eb;">
+                                            <i class="fas fa-search"></i></div>
+                                        <div class="stat-info">
+                                            <h3>Avg. Session Time</h3>
+                                            <div class="value" id="stat-avg-session">0m 0s</div>
                                         </div>
-                                        <div class="admin-form-group">
-                                            <label>Severity Level</label>
-                                            <select id="devBugSeverity" required>
-                                                <option value="Minor">🟢 Minor — UI glitch</option>
-                                                <option value="Normal">🔵 Normal — Functional issue</option>
-                                                <option value="Major" selected>🟠 Major — Blocking work</option>
-                                                <option value="Critical">🔴 Critical — System down</option>
-                                            </select>
+                                    </div>
+                                    <div class="stat-card">
+                                        <div class="stat-icon"
+                                            style="background: rgba(166,121,10,0.1); color: var(--accent-color);"><i
+                                                class="fas fa-bullseye"></i></div>
+                                        <div class="stat-info">
+                                            <h3>Conversion Rate</h3>
+                                            <div class="value" id="stat-conv-rate">0.0%</div>
                                         </div>
-                                        <div class="admin-form-group">
-                                            <label>Description</label>
-                                            <textarea id="devBugDescription" rows="4" placeholder="Describe what happened, steps to reproduce..."></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> <!-- Close Analytics Section -->
+
+                        <!-- Section: Developer Options -->
+                        <div id="developer-section" class="admin-view">
+
+
+                                <!-- IN-PAGE Password Gate (shown when not authenticated) -->
+                                <div id="dev-password-gate"
+                                    style="display: flex !important; justify-content: center; align-items: center; min-height: 60vh; width: 100%;">
+                                    <div
+                                        style="background: var(--admin-card); border: 1px solid var(--glass-border); border-radius: 30px; padding: 50px 40px; text-align: center; max-width: 420px; width: 100%; box-shadow: 0 20px 60px rgba(0,0,0,0.4);">
+                                        <div
+                                            style="width: 70px; height: 70px; background: rgba(15, 124, 88, 0.1); border-radius: 20px; display: flex; align-items: center; justify-content: center; margin: 0 auto 25px;">
+                                            <i class="fas fa-terminal" style="font-size: 28px; color: #0ee9a0;"></i>
                                         </div>
-                                        <button type="submit" style="width: 100%; padding: 14px; background: linear-gradient(135deg, #EF4444, #DC2626); border: none; border-radius: 12px; color: white; font-weight: 800; font-size: 13px; cursor: pointer; letter-spacing: 0.5px;"><i class="fas fa-bug"></i> SUBMIT BUG REPORT</button>
-                                    </form>
+                                        <h3 style="font-size: 22px; font-weight: 800; margin-bottom: 10px;">Developer
+                                            Access</h3>
+                                        <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 30px;">Enter
+                                            developer password to unlock the console.</p>
+                                        <input type="password" id="dev-pw-input" placeholder="Developer Password"
+                                            style="width: 100%; padding: 16px; background: var(--input-bg); border: 1px solid var(--glass-border); border-radius: 15px; color: var(--input-text); font-size: 16px; margin-bottom: 15px; text-align: center; letter-spacing: 3px;"
+                                            onkeydown="if(event.key==='Enter') checkDevPass()">
+                                        <p id="dev-pw-error"
+                                            style="color: #ef4444; font-size: 13px; display: none; margin-bottom: 15px;">
+                                            Incorrect password. Try again.</p>
+                                        <button onclick="checkDevPass()"
+                                            style="width: 100%; padding: 16px; background: linear-gradient(135deg, #10B981, #059669); border: none; border-radius: 15px; color: white; font-weight: 800; font-size: 15px; cursor: pointer;">UNLOCK
+                                            CONSOLE</button>
+                                    </div>
                                 </div>
 
-                                <!-- Change Log Form -->
-                                <div id="dev-pane-changes" style="padding: 25px; display: none;">
-                                    <form id="changeLogForm">
-                                        <div class="admin-form-group">
-                                            <label>Update Title</label>
-                                            <input type="text" id="devChangeTitle" placeholder="e.g. Added mobile responsive sidebar" required>
+                                <!-- Actual Dev Console (hidden until authenticated) -->
+                                <div id="dev-console-content" style="display: none;">
+
+                                    <!-- Header Banner -->
+                                    <div
+                                        style="background: linear-gradient(135deg, rgba(16,185,129,0.15), rgba(37,99,235,0.1)); border: 1px solid rgba(16,185,129,0.25); padding: 20px 30px; border-radius: 20px; margin-bottom: 30px; display: flex; align-items: center; gap: 15px;">
+                                        <div
+                                            style="width: 48px; height: 48px; background: rgba(16,185,129,0.2); border-radius: 14px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                            <i class="fas fa-terminal" style="color: #10B981; font-size: 20px;"></i>
                                         </div>
-                                        <div class="admin-form-group">
-                                            <label>Category</label>
-                                            <select id="devChangeType" required>
-                                                <option value="Feature">✨ New Feature</option>
-                                                <option value="Fix">🔧 Bug Fix</option>
-                                                <option value="Optim">⚡ Optimization</option>
-                                                <option value="Security">🔒 Security Update</option>
-                                            </select>
+                                        <div>
+                                            <div
+                                                style="font-weight: 900; font-size: 15px; color: #10B981; letter-spacing: 1px;">
+                                                DEVELOPER CONSOLE — ONLINE & SYNCHRONIZED</div>
+                                            <div style="font-size: 12px; color: var(--text-muted); margin-top: 3px;">
+                                                Firebase Realtime DB connected · All logs persisted</div>
                                         </div>
-                                        <div class="admin-form-group">
-                                            <label>Description</label>
-                                            <textarea id="devChangeDescription" rows="4" placeholder="What was changed and why..."></textarea>
+                                        <div style="margin-left: auto; display: flex; gap: 8px; align-items: center;">
+                                            <div
+                                                style="width: 10px; height: 10px; background: #10B981; border-radius: 50%; box-shadow: 0 0 8px #10B981; animation: pulse 2s infinite;">
+                                            </div>
+                                            <span style="font-size: 11px; color: #10B981; font-weight: 800;">LIVE</span>
                                         </div>
-                                        <button type="submit" style="width: 100%; padding: 14px; background: linear-gradient(135deg, #2563EB, #1D4ED8); border: none; border-radius: 12px; color: white; font-weight: 800; font-size: 13px; cursor: pointer; letter-spacing: 0.5px;"><i class="fas fa-code-branch"></i> LOG THIS CHANGE</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
+                                    </div>
 
-                        <!-- Data View Tables -->
-                        <div class="stat-card" style="flex-direction: column; align-items: stretch; padding: 30px;">
-                            <!-- Table Tab Switcher -->
-                            <div style="display: flex; gap: 5px; margin-bottom: 25px; background: rgba(0,0,0,0.2); padding: 5px; border-radius: 15px; width: fit-content;">
-                                <button id="view-tab-bugs" onclick="switchDataView('bugs')" style="padding: 10px 22px; border: none; border-radius: 12px; background: rgba(239,68,68,0.15); color: #EF4444; font-weight: 800; font-size: 12px; cursor: pointer;">🐛 Bug Reports</button>
-                                <button id="view-tab-changes" onclick="switchDataView('changes')" style="padding: 10px 22px; border: none; border-radius: 12px; background: transparent; color: #94a3b8; font-weight: 800; font-size: 12px; cursor: pointer;">📋 Change History</button>
-                            </div>
+                                    <!-- Summary Cards -->
+                                    <div
+                                        style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px; margin-bottom: 30px;">
+                                        <div class="stat-card"
+                                            style="padding: 22px; background: rgba(16,185,129,0.06); border-color: rgba(16,185,129,0.2);">
+                                            <div class="stat-icon"
+                                                style="width: 44px; height: 44px; font-size: 18px; background: rgba(16,185,129,0.15); color: #10B981; margin-right: 15px; flex-shrink: 0;">
+                                                <i class="fas fa-check-circle"></i></div>
+                                            <div>
+                                                <div
+                                                    style="font-size: 10px; color: var(--text-muted); font-weight: 900; letter-spacing: 1px; text-transform: uppercase;">
+                                                    System Status</div>
+                                                <div style="font-weight: 900; color: #10B981; font-size: 15px;">
+                                                    OPERATIONAL</div>
+                                            </div>
+                                        </div>
+                                        <div class="stat-card"
+                                            style="padding: 22px; background: rgba(239,68,68,0.06); border-color: rgba(239,68,68,0.2);">
+                                            <div class="stat-icon"
+                                                style="width: 44px; height: 44px; font-size: 18px; background: rgba(239,68,68,0.15); color: #EF4444; margin-right: 15px; flex-shrink: 0;">
+                                                <i class="fas fa-bug"></i></div>
+                                            <div>
+                                                <div
+                                                    style="font-size: 10px; color: var(--text-muted); font-weight: 900; letter-spacing: 1px; text-transform: uppercase;">
+                                                    Active Bugs</div>
+                                                <div style="font-weight: 900; color: #EF4444; font-size: 15px;"
+                                                    id="dev-bug-count">0 Reports</div>
+                                            </div>
+                                        </div>
+                                        <div class="stat-card"
+                                            style="padding: 22px; background: rgba(37,99,235,0.06); border-color: rgba(37,99,235,0.2);">
+                                            <div class="stat-icon"
+                                                style="width: 44px; height: 44px; font-size: 18px; background: rgba(37,99,235,0.15); color: #2563EB; margin-right: 15px; flex-shrink: 0;">
+                                                <i class="fas fa-code-branch"></i></div>
+                                            <div>
+                                                <div
+                                                    style="font-size: 10px; color: var(--text-muted); font-weight: 900; letter-spacing: 1px; text-transform: uppercase;">
+                                                    Changes Logged</div>
+                                                <div style="font-weight: 900; color: #2563EB; font-size: 15px;"
+                                                    id="dev-change-count">0 Entries</div>
+                                            </div>
+                                        </div>
+                                    </div>
 
-                            <!-- Bug Reports Table -->
-                            <div id="data-pane-bugs" class="table-container">
-                                <table>
-                                    <thead><tr>
-                                        <th>Timestamp</th>
-                                        <th>Issue</th>
-                                        <th>Severity</th>
-                                        <th style="text-align:center;">Actions</th>
-                                    </tr></thead>
-                                    <tbody id="admin-bug-list"></tbody>
-                                </table>
-                                <div id="no-bugs-info" class="no-data-info" style="display:none; text-align:center; padding: 40px; color: var(--text-muted);">
-                                    <i class="fas fa-check-circle" style="font-size: 30px; color: #10B981; display: block; margin-bottom: 10px;"></i>
-                                    No active bug reports. System clean!
-                                </div>
-                            </div>
+                                    <!-- Two Column: Logs + Forms -->
+                                    <div
+                                        style="display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin-bottom: 30px;">
 
-                            <!-- Changes Table -->
-                            <div id="data-pane-changes" class="table-container" style="display:none;">
-                                <table>
-                                    <thead><tr>
-                                        <th>Date</th>
-                                        <th>Change</th>
-                                        <th>Tag</th>
-                                        <th style="text-align:center;">Actions</th>
-                                    </tr></thead>
-                                    <tbody id="admin-change-list"></tbody>
-                                </table>
-                                <div id="no-changes-info" class="no-data-info" style="display:none; text-align:center; padding: 40px; color: var(--text-muted);">
-                                    <i class="fas fa-history" style="font-size: 30px; color: #2563EB; display: block; margin-bottom: 10px;"></i>
-                                    No changes logged yet.
-                                </div>
-                            </div>
+                                        <!-- Live Activity Logs -->
+                                        <div class="stat-card"
+                                            style="flex-direction: column; align-items: stretch; padding: 25px; min-height: 500px; display: flex;">
+                                            <div
+                                                style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                                                <div style="display: flex; align-items: center; gap: 10px;">
+                                                    <div
+                                                        style="width: 36px; height: 36px; background: rgba(16,185,129,0.15); border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+                                                        <i class="fas fa-stream"
+                                                            style="color: #10B981; font-size: 14px;"></i>
+                                                    </div>
+                                                    <h3 style="margin: 0; font-size: 16px; font-weight: 800;">Live
+                                                        Activity Logs</h3>
+                                                </div>
+                                                <button onclick="clearSystemLogs()"
+                                                    style="background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.2); color: #EF4444; padding: 6px 14px; border-radius: 8px; cursor: pointer; font-size: 11px; font-weight: 800;"><i
+                                                        class="fas fa-trash-alt"></i> Clear</button>
+                                            </div>
+                                            <div id="system-logs-container"
+                                                style="flex-grow: 1; background: rgba(0,0,0,0.35); border-radius: 15px; padding: 20px; font-family: 'Consolas','Monaco',monospace; font-size: 12px; line-height: 1.7; overflow-y: auto; border: 1px solid var(--glass-border); max-height: 420px;">
+                                                <div style="color: #64748b;">[SYSTEM] Waiting for events...</div>
+                                            </div>
+                                        </div>
 
-                        </div> <!-- Close Data View Tables card -->
+                                        <!-- Bug Report + Change Log Tabs -->
+                                        <div class="stat-card"
+                                            style="flex-direction: column; align-items: stretch; padding: 0; overflow: hidden;">
+                                            <!-- Tab switcher -->
+                                            <div style="display: flex; border-bottom: 1px solid var(--glass-border);">
+                                                <button id="dev-tab-bugs" onclick="switchDevTab('bugs')"
+                                                    style="flex: 1; padding: 18px 10px; border: none; background: rgba(239,68,68,0.1); color: #EF4444; font-weight: 800; font-size: 12px; cursor: pointer; border-right: 1px solid var(--glass-border); letter-spacing: 0.5px;"><i
+                                                        class="fas fa-bug"></i> REPORT BUG</button>
+                                                <button id="dev-tab-changes" onclick="switchDevTab('changes')"
+                                                    style="flex: 1; padding: 18px 10px; border: none; background: transparent; color: #94a3b8; font-weight: 800; font-size: 12px; cursor: pointer; letter-spacing: 0.5px;"><i
+                                                        class="fas fa-code-branch"></i> LOG CHANGE</button>
+                                            </div>
 
-                        <!-- ═══ QUICK ACTIONS ROW ═══ -->
-                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 15px; margin-top: 30px; margin-bottom: 30px;">
-                            <button onclick="exportFirebaseData()" style="background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.25); color: #10B981; padding: 18px 10px; border-radius: 16px; cursor: pointer; font-weight: 800; font-size: 12px; transition: all 0.3s;">
-                                <i class="fas fa-file-export" style="display:block; font-size:22px; margin-bottom:8px;"></i>Export DB (JSON)
-                            </button>
-                            <button onclick="sendTestNotification()" style="background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.25); color: #F59E0B; padding: 18px 10px; border-radius: 16px; cursor: pointer; font-weight: 800; font-size: 12px; transition: all 0.3s;">
-                                <i class="fas fa-bell" style="display:block; font-size:22px; margin-bottom:8px;"></i>Test Notification
-                            </button>
-                            <button onclick="clearSiteCache()" style="background: rgba(139,92,246,0.1); border: 1px solid rgba(139,92,246,0.25); color: #8B5CF6; padding: 18px 10px; border-radius: 16px; cursor: pointer; font-weight: 800; font-size: 12px; transition: all 0.3s;">
-                                <i class="fas fa-broom" style="display:block; font-size:22px; margin-bottom:8px;"></i>Clear Cache
-                            </button>
-                            <button onclick="runSiteHealthCheck()" style="background: rgba(37,99,235,0.1); border: 1px solid rgba(37,99,235,0.25); color: #2563EB; padding: 18px 10px; border-radius: 16px; cursor: pointer; font-weight: 800; font-size: 12px; transition: all 0.3s;">
-                                <i class="fas fa-heartbeat" style="display:block; font-size:22px; margin-bottom:8px;"></i>Health Check
-                            </button>
-                            <button onclick="toggleMaintenanceMode()" id="maintenance-btn" style="background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.25); color: #EF4444; padding: 18px 10px; border-radius: 16px; cursor: pointer; font-weight: 800; font-size: 12px; transition: all 0.3s;">
-                                <i class="fas fa-hard-hat" style="display:block; font-size:22px; margin-bottom:8px;"></i>Maintenance Mode
-                            </button>
-                            <button onclick="setDevicePreview('mobile')" style="background: rgba(251,191,36,0.1); border: 1px solid rgba(251,191,36,0.25); color: #FBBF24; padding: 18px 10px; border-radius: 16px; cursor: pointer; font-weight: 800; font-size: 12px; transition: all 0.3s;">
-                                <i class="fas fa-mobile-alt" style="display:block; font-size:22px; margin-bottom:8px;"></i>Preview Mobile
-                            </button>
-                        </div>
+                                            <!-- Bug Report Form -->
+                                            <div id="dev-pane-bugs" style="padding: 25px;">
+                                                <form id="bugReportForm">
+                                                    <div class="admin-form-group">
+                                                        <label>Issue Title</label>
+                                                        <input type="text" id="devBugTitle"
+                                                            placeholder="e.g. Login button not responding" required>
+                                                    </div>
+                                                    <div class="admin-form-group">
+                                                        <label>Severity Level</label>
+                                                        <select id="devBugSeverity" required>
+                                                            <option value="Minor">🟢 Minor — UI glitch</option>
+                                                            <option value="Normal">🔵 Normal — Functional issue</option>
+                                                            <option value="Major" selected>🟠 Major — Blocking work
+                                                            </option>
+                                                            <option value="Critical">🔴 Critical — System down</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="admin-form-group">
+                                                        <label>Description</label>
+                                                        <textarea id="devBugDescription" rows="4"
+                                                            placeholder="Describe what happened, steps to reproduce..."></textarea>
+                                                    </div>
+                                                    <button type="submit"
+                                                        style="width: 100%; padding: 14px; background: linear-gradient(135deg, #EF4444, #DC2626); border: none; border-radius: 12px; color: white; font-weight: 800; font-size: 13px; cursor: pointer; letter-spacing: 0.5px;"><i
+                                                            class="fas fa-bug"></i> SUBMIT BUG REPORT</button>
+                                                </form>
+                                            </div>
 
-                        <!-- ═══ SITE HEALTH DASHBOARD ═══ -->
-                        <div class="stat-card" style="flex-direction: column; align-items: stretch; padding: 30px; margin-bottom: 25px;">
-                            <div style="display:flex; align-items:center; gap:12px; margin-bottom:25px;">
-                                <div style="width:40px;height:40px;background:rgba(37,99,235,0.15);border-radius:12px;display:flex;align-items:center;justify-content:center;"><i class="fas fa-heartbeat" style="color:#2563EB;font-size:18px;"></i></div>
-                                <h3 style="margin:0;font-size:17px;font-weight:800;">Site Health Dashboard</h3>
-                                <button onclick="runSiteHealthCheck()" style="margin-left:auto;background:rgba(37,99,235,0.1);border:1px solid rgba(37,99,235,0.3);color:#2563EB;padding:8px 18px;border-radius:10px;cursor:pointer;font-size:12px;font-weight:800;"><i class="fas fa-sync-alt"></i> Run Check</button>
-                            </div>
-                            <div id="health-check-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:15px;">
-                                <div class="health-item" data-key="firebase" style="background:rgba(0,0,0,0.2);border-radius:15px;padding:18px;border:1px solid var(--glass-border);">
-                                    <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;"><i class="fas fa-database" style="color:#F59E0B;"></i><span style="font-weight:700;font-size:13px;">Firebase DB</span></div>
-                                    <div class="health-status" style="font-size:12px;color:#64748b;">Pending check...</div>
-                                </div>
-                                <div class="health-item" data-key="formspree" style="background:rgba(0,0,0,0.2);border-radius:15px;padding:18px;border:1px solid var(--glass-border);">
-                                    <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;"><i class="fas fa-envelope" style="color:#8B5CF6;"></i><span style="font-weight:700;font-size:13px;">Formspree API</span></div>
-                                    <div class="health-status" style="font-size:12px;color:#64748b;">Pending check...</div>
-                                </div>
-                                <div class="health-item" data-key="notifications" style="background:rgba(0,0,0,0.2);border-radius:15px;padding:18px;border:1px solid var(--glass-border);">
-                                    <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;"><i class="fas fa-bell" style="color:#10B981;"></i><span style="font-weight:700;font-size:13px;">Push Notifications</span></div>
-                                    <div class="health-status" style="font-size:12px;color:#64748b;">Pending check...</div>
-                                </div>
-                                <div class="health-item" data-key="sw" style="background:rgba(0,0,0,0.2);border-radius:15px;padding:18px;border:1px solid var(--glass-border);">
-                                    <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;"><i class="fas fa-cog" style="color:#2563EB;"></i><span style="font-weight:700;font-size:13px;">Service Worker</span></div>
-                                    <div class="health-status" style="font-size:12px;color:#64748b;">Pending check...</div>
-                                </div>
-                                <div class="health-item" data-key="storage" style="background:rgba(0,0,0,0.2);border-radius:15px;padding:18px;border:1px solid var(--glass-border);">
-                                    <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;"><i class="fas fa-hdd" style="color:#EF4444;"></i><span style="font-weight:700;font-size:13px;">Local Storage</span></div>
-                                    <div class="health-status" style="font-size:12px;color:#64748b;">Pending check...</div>
-                                </div>
-                                <div class="health-item" data-key="online" style="background:rgba(0,0,0,0.2);border-radius:15px;padding:18px;border:1px solid var(--glass-border);">
-                                    <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;"><i class="fas fa-wifi" style="color:#10B981;"></i><span style="font-weight:700;font-size:13px;">Network Status</span></div>
-                                    <div class="health-status" style="font-size:12px;color:#64748b;">Pending check...</div>
-                                </div>
-                            </div>
-                        </div>
+                                            <!-- Change Log Form -->
+                                            <div id="dev-pane-changes" style="padding: 25px; display: none;">
+                                                <form id="changeLogForm">
+                                                    <div class="admin-form-group">
+                                                        <label>Update Title</label>
+                                                        <input type="text" id="devChangeTitle"
+                                                            placeholder="e.g. Added mobile responsive sidebar" required>
+                                                    </div>
+                                                    <div class="admin-form-group">
+                                                        <label>Category</label>
+                                                        <select id="devChangeType" required>
+                                                            <option value="Feature">✨ New Feature</option>
+                                                            <option value="Fix">🔧 Bug Fix</option>
+                                                            <option value="Optim">⚡ Optimization</option>
+                                                            <option value="Security">🔒 Security Update</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="admin-form-group">
+                                                        <label>Description</label>
+                                                        <textarea id="devChangeDescription" rows="4"
+                                                            placeholder="What was changed and why..."></textarea>
+                                                    </div>
+                                                    <button type="submit"
+                                                        style="width: 100%; padding: 14px; background: linear-gradient(135deg, #2563EB, #1D4ED8); border: none; border-radius: 12px; color: white; font-weight: 800; font-size: 13px; cursor: pointer; letter-spacing: 0.5px;"><i
+                                                            class="fas fa-code-branch"></i> LOG THIS CHANGE</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
 
-                        <!-- ═══ ADMIN LOGIN AUDIT LOG ═══ -->
-                        <div class="stat-card" style="flex-direction: column; align-items: stretch; padding: 30px; margin-bottom: 25px;">
-                            <div style="display:flex;align-items:center;gap:12px;margin-bottom:25px;">
-                                <div style="width:40px;height:40px;background:rgba(239,68,68,0.15);border-radius:12px;display:flex;align-items:center;justify-content:center;"><i class="fas fa-shield-alt" style="color:#EF4444;font-size:18px;"></i></div>
-                                <div>
-                                    <h3 style="margin:0;font-size:17px;font-weight:800;">Admin Login Audit Log</h3>
-                                    <p style="margin:3px 0 0;font-size:12px;color:var(--text-muted);">Tracks all login & logout events with IP and timestamp</p>
-                                </div>
-                                <div style="margin-left:auto;display:flex;align-items:center;gap:8px;">
-                                    <span id="failed-login-badge" style="background:rgba(239,68,68,0.15);color:#EF4444;padding:5px 14px;border-radius:20px;font-size:11px;font-weight:900;border:1px solid rgba(239,68,68,0.2);">0 Failed</span>
-                                    <button onclick="clearAuditLog()" style="background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.2);color:#EF4444;padding:7px 14px;border-radius:10px;cursor:pointer;font-size:11px;font-weight:800;"><i class="fas fa-trash"></i></button>
-                                </div>
-                            </div>
-                            <div class="table-container">
-                                <table>
-                                    <thead><tr>
-                                        <th>Timestamp</th>
-                                        <th>Event</th>
-                                        <th>Status</th>
-                                        <th>User Agent</th>
-                                    </tr></thead>
-                                    <tbody id="audit-log-list"></tbody>
-                                </table>
-                                <div id="no-audit-info" style="text-align:center;padding:30px;color:var(--text-muted);font-size:13px;display:none;"><i class="fas fa-check-shield" style="color:#10B981;display:block;font-size:24px;margin-bottom:8px;"></i>No login events logged yet.</div>
-                            </div>
-                        </div>
+                                    <!-- Data View Tables -->
+                                    <div class="stat-card"
+                                        style="flex-direction: column; align-items: stretch; padding: 30px;">
+                                        <!-- Table Tab Switcher -->
+                                        <div
+                                            style="display: flex; gap: 5px; margin-bottom: 25px; background: rgba(0,0,0,0.2); padding: 5px; border-radius: 15px; width: fit-content;">
+                                            <button id="view-tab-bugs" onclick="switchDataView('bugs')"
+                                                style="padding: 10px 22px; border: none; border-radius: 12px; background: rgba(239,68,68,0.15); color: #EF4444; font-weight: 800; font-size: 12px; cursor: pointer;">🐛
+                                                Bug Reports</button>
+                                            <button id="view-tab-changes" onclick="switchDataView('changes')"
+                                                style="padding: 10px 22px; border: none; border-radius: 12px; background: transparent; color: #94a3b8; font-weight: 800; font-size: 12px; cursor: pointer;">📋
+                                                Change History</button>
+                                        </div>
 
-                        <!-- ═══ TWO COLUMN: SECURITY + MAINTENANCE ═══ -->
-                        <div style="display:grid;grid-template-columns:1fr 1fr;gap:25px;margin-bottom:25px;">
+                                        <!-- Bug Reports Table -->
+                                        <div id="data-pane-bugs" class="table-container">
+                                            <table>
+                                                <thead>
+                                                    <tr>
+                                                        <th>Timestamp</th>
+                                                        <th>Issue</th>
+                                                        <th>Severity</th>
+                                                        <th style="text-align:center;">Actions</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="admin-bug-list"></tbody>
+                                            </table>
+                                            <div id="no-bugs-info" class="no-data-info"
+                                                style="display:none; text-align:center; padding: 40px; color: var(--text-muted);">
+                                                <i class="fas fa-check-circle"
+                                                    style="font-size: 30px; color: #10B981; display: block; margin-bottom: 10px;"></i>
+                                                No active bug reports. System clean!
+                                            </div>
+                                        </div>
 
-                            <!-- Security Settings -->
-                            <div class="stat-card" style="flex-direction:column;align-items:stretch;padding:30px;">
-                                <div style="display:flex;align-items:center;gap:12px;margin-bottom:25px;">
-                                    <div style="width:40px;height:40px;background:rgba(139,92,246,0.15);border-radius:12px;display:flex;align-items:center;justify-content:center;"><i class="fas fa-lock" style="color:#8B5CF6;font-size:18px;"></i></div>
-                                    <h3 style="margin:0;font-size:17px;font-weight:800;">Security Settings</h3>
-                                </div>
-                                <div style="background:rgba(0,0,0,0.2);border-radius:15px;padding:20px;margin-bottom:18px;border:1px solid var(--glass-border);">
-                                    <div style="font-size:11px;font-weight:900;color:#8B5CF6;text-transform:uppercase;letter-spacing:1px;margin-bottom:15px;">Change Admin Password</div>
-                                    <input type="password" id="sec-current-pw" placeholder="Current password" style="width:100%;padding:12px;background:var(--input-bg);border:1px solid var(--glass-border);border-radius:10px;color:var(--input-text);margin-bottom:10px;font-size:13px;">
-                                    <input type="password" id="sec-new-pw" placeholder="New password" style="width:100%;padding:12px;background:var(--input-bg);border:1px solid var(--glass-border);border-radius:10px;color:var(--input-text);margin-bottom:10px;font-size:13px;">
-                                    <input type="password" id="sec-confirm-pw" placeholder="Confirm new password" style="width:100%;padding:12px;background:var(--input-bg);border:1px solid var(--glass-border);border-radius:10px;color:var(--input-text);margin-bottom:15px;font-size:13px;">
-                                    <button onclick="changeAdminPassword()" style="width:100%;padding:12px;background:linear-gradient(135deg,#8B5CF6,#7C3AED);border:none;border-radius:10px;color:white;font-weight:800;font-size:13px;cursor:pointer;"><i class="fas fa-key"></i> Update Password</button>
-                                    <p id="pw-change-msg" style="font-size:12px;margin-top:10px;display:none;"></p>
-                                </div>
-                                <div style="background:rgba(239,68,68,0.05);border-radius:15px;padding:18px;border:1px solid rgba(239,68,68,0.2);">
-                                    <div style="font-size:11px;font-weight:900;color:#EF4444;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;">Failed Login Attempts</div>
-                                    <div id="failed-attempts-display" style="font-size:28px;font-weight:900;color:#EF4444;">0</div>
-                                    <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">Total failed attempts recorded</div>
-                                    <button onclick="clearFailedAttempts()" style="margin-top:12px;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.2);color:#EF4444;padding:8px 18px;border-radius:8px;cursor:pointer;font-size:11px;font-weight:800;">Clear Record</button>
-                                </div>
-                            </div>
+                                        <!-- Changes Table -->
+                                        <div id="data-pane-changes" class="table-container" style="display:none;">
+                                            <table>
+                                                <thead>
+                                                    <tr>
+                                                        <th>Date</th>
+                                                        <th>Change</th>
+                                                        <th>Tag</th>
+                                                        <th style="text-align:center;">Actions</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="admin-change-list"></tbody>
+                                            </table>
+                                            <div id="no-changes-info" class="no-data-info"
+                                                style="display:none; text-align:center; padding: 40px; color: var(--text-muted);">
+                                                <i class="fas fa-history"
+                                                    style="font-size: 30px; color: #2563EB; display: block; margin-bottom: 10px;"></i>
+                                                No changes logged yet.
+                                            </div>
+                                        </div>
 
-                            <!-- Maintenance Mode -->
-                            <div class="stat-card" style="flex-direction:column;align-items:stretch;padding:30px;">
-                                <div style="display:flex;align-items:center;gap:12px;margin-bottom:25px;">
-                                    <div style="width:40px;height:40px;background:rgba(239,68,68,0.15);border-radius:12px;display:flex;align-items:center;justify-content:center;"><i class="fas fa-hard-hat" style="color:#EF4444;font-size:18px;"></i></div>
-                                    <h3 style="margin:0;font-size:17px;font-weight:800;">Maintenance Mode</h3>
-                                </div>
-                                <div id="maintenance-status-card" style="background:rgba(16,185,129,0.08);border:2px solid rgba(16,185,129,0.3);border-radius:18px;padding:25px;text-align:center;margin-bottom:20px;">
-                                    <div id="maintenance-icon" style="font-size:36px;margin-bottom:12px;">✅</div>
-                                    <div id="maintenance-label" style="font-size:18px;font-weight:900;color:#10B981;">SITE ONLINE</div>
-                                    <div style="font-size:12px;color:var(--text-muted);margin-top:5px;">Website is live and accessible</div>
-                                </div>
-                                <button id="maintenance-toggle-btn" onclick="toggleMaintenanceMode()" style="width:100%;padding:16px;background:linear-gradient(135deg,#EF4444,#DC2626);border:none;border-radius:14px;color:white;font-weight:900;font-size:14px;cursor:pointer;transition:all 0.3s;">
-                                    <i class="fas fa-hard-hat"></i> ENABLE MAINTENANCE MODE
-                                </button>
-                                <div style="background:rgba(0,0,0,0.2);border-radius:12px;padding:15px;margin-top:15px;">
-                                    <div style="font-size:11px;font-weight:800;color:var(--text-muted);margin-bottom:8px;">Custom Maintenance Message</div>
-                                    <textarea id="maintenance-message" rows="3" placeholder="We'll be back soon! Scheduled maintenance in progress." style="width:100%;background:var(--input-bg);border:1px solid var(--glass-border);border-radius:8px;color:var(--input-text);padding:10px;font-size:12px;resize:none;"></textarea>
-                                </div>
-                            </div>
-                        </div>
+                                    </div> <!-- Close Data View Tables card -->
 
-                        <!-- ═══ DEV NOTES SCRATCHPAD ═══ -->
-                        <div class="stat-card" style="flex-direction:column;align-items:stretch;padding:30px;margin-bottom:25px;">
-                            <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;">
-                                <div style="width:40px;height:40px;background:rgba(251,191,36,0.15);border-radius:12px;display:flex;align-items:center;justify-content:center;"><i class="fas fa-sticky-note" style="color:#FBBF24;font-size:18px;"></i></div>
-                                <div>
-                                    <h3 style="margin:0;font-size:17px;font-weight:800;">Developer Scratchpad</h3>
-                                    <p style="margin:3px 0 0;font-size:12px;color:var(--text-muted);">Saved to Firebase — accessible from any device</p>
-                                </div>
-                                <button onclick="saveDevNotes()" style="margin-left:auto;background:linear-gradient(135deg,#FBBF24,#F59E0B);border:none;color:#1a1a1a;padding:10px 22px;border-radius:12px;cursor:pointer;font-size:12px;font-weight:900;"><i class="fas fa-save"></i> Save Notes</button>
-                            </div>
-                            <textarea id="dev-notes-area" rows="8" placeholder="Write your dev notes here... (TODOs, ideas, reminders, credentials hints)" style="width:100%;background:rgba(0,0,0,0.25);border:1px solid var(--glass-border);border-radius:15px;color:var(--input-text);padding:20px;font-family:'Consolas','Monaco',monospace;font-size:13px;line-height:1.7;resize:vertical;transition:border 0.3s;"></textarea>
-                            <div id="notes-save-status" style="font-size:12px;color:var(--text-muted);margin-top:10px;text-align:right;"></div>
-                        </div>
+                                    <!-- ═══ QUICK ACTIONS ROW ═══ -->
+                                    <div
+                                        style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 15px; margin-top: 30px; margin-bottom: 30px;">
+                                        <button onclick="exportFirebaseData()"
+                                            style="background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.25); color: #10B981; padding: 18px 10px; border-radius: 16px; cursor: pointer; font-weight: 800; font-size: 12px; transition: all 0.3s;">
+                                            <i class="fas fa-file-export"
+                                                style="display:block; font-size:22px; margin-bottom:8px;"></i>Export DB
+                                            (JSON)
+                                        </button>
+                                        <button onclick="sendTestNotification()"
+                                            style="background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.25); color: #F59E0B; padding: 18px 10px; border-radius: 16px; cursor: pointer; font-weight: 800; font-size: 12px; transition: all 0.3s;">
+                                            <i class="fas fa-bell"
+                                                style="display:block; font-size:22px; margin-bottom:8px;"></i>Test
+                                            Notification
+                                        </button>
+                                        <button onclick="clearSiteCache()"
+                                            style="background: rgba(139,92,246,0.1); border: 1px solid rgba(139,92,246,0.25); color: #8B5CF6; padding: 18px 10px; border-radius: 16px; cursor: pointer; font-weight: 800; font-size: 12px; transition: all 0.3s;">
+                                            <i class="fas fa-broom"
+                                                style="display:block; font-size:22px; margin-bottom:8px;"></i>Clear
+                                            Cache
+                                        </button>
+                                        <button onclick="runSiteHealthCheck()"
+                                            style="background: rgba(37,99,235,0.1); border: 1px solid rgba(37,99,235,0.25); color: #2563EB; padding: 18px 10px; border-radius: 16px; cursor: pointer; font-weight: 800; font-size: 12px; transition: all 0.3s;">
+                                            <i class="fas fa-heartbeat"
+                                                style="display:block; font-size:22px; margin-bottom:8px;"></i>Health
+                                            Check
+                                        </button>
+                                        <button onclick="toggleMaintenanceMode()" id="maintenance-btn"
+                                            style="background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.25); color: #EF4444; padding: 18px 10px; border-radius: 16px; cursor: pointer; font-weight: 800; font-size: 12px; transition: all 0.3s;">
+                                            <i class="fas fa-hard-hat"
+                                                style="display:block; font-size:22px; margin-bottom:8px;"></i>Maintenance
+                                            Mode
+                                        </button>
+                                        <button onclick="setDevicePreview('mobile')"
+                                            style="background: rgba(251,191,36,0.1); border: 1px solid rgba(251,191,36,0.25); color: #FBBF24; padding: 18px 10px; border-radius: 16px; cursor: pointer; font-weight: 800; font-size: 12px; transition: all 0.3s;">
+                                            <i class="fas fa-mobile-alt"
+                                                style="display:block; font-size:22px; margin-bottom:8px;"></i>Preview
+                                            Mobile
+                                        </button>
+                                    </div>
 
-                        <!-- ═══ FIREBASE USAGE MONITOR ═══ -->
-                        <div class="stat-card" style="flex-direction:column;align-items:stretch;padding:30px;margin-bottom:25px;">
-                            <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;">
-                                <div style="width:40px;height:40px;background:rgba(245,158,11,0.15);border-radius:12px;display:flex;align-items:center;justify-content:center;"><i class="fas fa-database" style="color:#F59E0B;font-size:18px;"></i></div>
-                                <h3 style="margin:0;font-size:17px;font-weight:800;">Firebase Usage Monitor</h3>
-                                <button onclick="refreshFirebaseStats()" style="margin-left:auto;background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.3);color:#F59E0B;padding:8px 18px;border-radius:10px;cursor:pointer;font-size:12px;font-weight:800;"><i class="fas fa-sync-alt"></i> Refresh</button>
-                            </div>
-                            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:15px;">
-                                <div style="background:rgba(0,0,0,0.2);border-radius:14px;padding:20px;border:1px solid var(--glass-border);text-align:center;">
-                                    <i class="fas fa-users" style="color:#10B981;font-size:24px;margin-bottom:10px;display:block;"></i>
-                                    <div id="fb-stat-submissions" style="font-size:24px;font-weight:900;color:#10B981;">—</div>
-                                    <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">Form Submissions</div>
-                                </div>
-                                <div style="background:rgba(0,0,0,0.2);border-radius:14px;padding:20px;border:1px solid var(--glass-border);text-align:center;">
-                                    <i class="fas fa-calendar-check" style="color:#2563EB;font-size:24px;margin-bottom:10px;display:block;"></i>
-                                    <div id="fb-stat-bookings" style="font-size:24px;font-weight:900;color:#2563EB;">—</div>
-                                    <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">Total Bookings</div>
-                                </div>
-                                <div style="background:rgba(0,0,0,0.2);border-radius:14px;padding:20px;border:1px solid var(--glass-border);text-align:center;">
-                                    <i class="fas fa-bug" style="color:#EF4444;font-size:24px;margin-bottom:10px;display:block;"></i>
-                                    <div id="fb-stat-bugs" style="font-size:24px;font-weight:900;color:#EF4444;">—</div>
-                                    <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">Bug Reports</div>
-                                </div>
-                                <div style="background:rgba(0,0,0,0.2);border-radius:14px;padding:20px;border:1px solid var(--glass-border);text-align:center;">
-                                    <i class="fas fa-code-branch" style="color:#8B5CF6;font-size:24px;margin-bottom:10px;display:block;"></i>
-                                    <div id="fb-stat-changes" style="font-size:24px;font-weight:900;color:#8B5CF6;">—</div>
-                                    <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">Change Logs</div>
-                                </div>
-                                <div style="background:rgba(0,0,0,0.2);border-radius:14px;padding:20px;border:1px solid var(--glass-border);text-align:center;">
-                                    <i class="fas fa-stream" style="color:#FBBF24;font-size:24px;margin-bottom:10px;display:block;"></i>
-                                    <div id="fb-stat-logs" style="font-size:24px;font-weight:900;color:#FBBF24;">—</div>
-                                    <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">System Logs</div>
-                                </div>
-                                <div style="background:rgba(0,0,0,0.2);border-radius:14px;padding:20px;border:1px solid var(--glass-border);text-align:center;">
-                                    <i class="fas fa-user-clock" style="color:#10B981;font-size:24px;margin-bottom:10px;display:block;"></i>
-                                    <div id="fb-stat-staff" style="font-size:24px;font-weight:900;color:#10B981;">—</div>
-                                    <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">Staff Registered</div>
-                                </div>
-                            </div>
-                        </div>
+                                    <!-- ═══ SITE HEALTH DASHBOARD ═══ -->
+                                    <div class="stat-card"
+                                        style="flex-direction: column; align-items: stretch; padding: 30px; margin-bottom: 25px;">
+                                        <div style="display:flex; align-items:center; gap:12px; margin-bottom:25px;">
+                                            <div
+                                                style="width:40px;height:40px;background:rgba(37,99,235,0.15);border-radius:12px;display:flex;align-items:center;justify-content:center;">
+                                                <i class="fas fa-heartbeat" style="color:#2563EB;font-size:18px;"></i>
+                                            </div>
+                                            <h3 style="margin:0;font-size:17px;font-weight:800;">Site Health Dashboard
+                                            </h3>
+                                            <button onclick="runSiteHealthCheck()"
+                                                style="margin-left:auto;background:rgba(37,99,235,0.1);border:1px solid rgba(37,99,235,0.3);color:#2563EB;padding:8px 18px;border-radius:10px;cursor:pointer;font-size:12px;font-weight:800;"><i
+                                                    class="fas fa-sync-alt"></i> Run Check</button>
+                                        </div>
+                                        <div id="health-check-grid"
+                                            style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:15px;">
+                                            <div class="health-item" data-key="firebase"
+                                                style="background:rgba(0,0,0,0.2);border-radius:15px;padding:18px;border:1px solid var(--glass-border);">
+                                                <div
+                                                    style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+                                                    <i class="fas fa-database" style="color:#F59E0B;"></i><span
+                                                        style="font-weight:700;font-size:13px;">Firebase DB</span></div>
+                                                <div class="health-status" style="font-size:12px;color:#64748b;">Pending
+                                                    check...</div>
+                                            </div>
+                                            <div class="health-item" data-key="formspree"
+                                                style="background:rgba(0,0,0,0.2);border-radius:15px;padding:18px;border:1px solid var(--glass-border);">
+                                                <div
+                                                    style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+                                                    <i class="fas fa-envelope" style="color:#8B5CF6;"></i><span
+                                                        style="font-weight:700;font-size:13px;">Formspree API</span>
+                                                </div>
+                                                <div class="health-status" style="font-size:12px;color:#64748b;">Pending
+                                                    check...</div>
+                                            </div>
+                                            <div class="health-item" data-key="notifications"
+                                                style="background:rgba(0,0,0,0.2);border-radius:15px;padding:18px;border:1px solid var(--glass-border);">
+                                                <div
+                                                    style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+                                                    <i class="fas fa-bell" style="color:#10B981;"></i><span
+                                                        style="font-weight:700;font-size:13px;">Push
+                                                        Notifications</span></div>
+                                                <div class="health-status" style="font-size:12px;color:#64748b;">Pending
+                                                    check...</div>
+                                            </div>
+                                            <div class="health-item" data-key="sw"
+                                                style="background:rgba(0,0,0,0.2);border-radius:15px;padding:18px;border:1px solid var(--glass-border);">
+                                                <div
+                                                    style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+                                                    <i class="fas fa-cog" style="color:#2563EB;"></i><span
+                                                        style="font-weight:700;font-size:13px;">Service Worker</span>
+                                                </div>
+                                                <div class="health-status" style="font-size:12px;color:#64748b;">Pending
+                                                    check...</div>
+                                            </div>
+                                            <div class="health-item" data-key="storage"
+                                                style="background:rgba(0,0,0,0.2);border-radius:15px;padding:18px;border:1px solid var(--glass-border);">
+                                                <div
+                                                    style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+                                                    <i class="fas fa-hdd" style="color:#EF4444;"></i><span
+                                                        style="font-weight:700;font-size:13px;">Local Storage</span>
+                                                </div>
+                                                <div class="health-status" style="font-size:12px;color:#64748b;">Pending
+                                                    check...</div>
+                                            </div>
+                                            <div class="health-item" data-key="online"
+                                                style="background:rgba(0,0,0,0.2);border-radius:15px;padding:18px;border:1px solid var(--glass-border);">
+                                                <div
+                                                    style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+                                                    <i class="fas fa-wifi" style="color:#10B981;"></i><span
+                                                        style="font-weight:700;font-size:13px;">Network Status</span>
+                                                </div>
+                                                <div class="health-status" style="font-size:12px;color:#64748b;">Pending
+                                                    check...</div>
+                                            </div>
+                                        </div>
+                                    </div>
 
-                    </div> <!-- Close dev-console-content -->
-                </div> <!-- Close developer-section -->
-            </main>
-        </div>
-    </div>
+                                    <!-- ═══ ADMIN LOGIN AUDIT LOG ═══ -->
+                                    <div class="stat-card"
+                                        style="flex-direction: column; align-items: stretch; padding: 30px; margin-bottom: 25px;">
+                                        <div style="display:flex;align-items:center;gap:12px;margin-bottom:25px;">
+                                            <div
+                                                style="width:40px;height:40px;background:rgba(239,68,68,0.15);border-radius:12px;display:flex;align-items:center;justify-content:center;">
+                                                <i class="fas fa-shield-alt" style="color:#EF4444;font-size:18px;"></i>
+                                            </div>
+                                            <div>
+                                                <h3 style="margin:0;font-size:17px;font-weight:800;">Admin Login Audit
+                                                    Log</h3>
+                                                <p style="margin:3px 0 0;font-size:12px;color:var(--text-muted);">Tracks
+                                                    all login & logout events with IP and timestamp</p>
+                                            </div>
+                                            <div style="margin-left:auto;display:flex;align-items:center;gap:8px;">
+                                                <span id="failed-login-badge"
+                                                    style="background:rgba(239,68,68,0.15);color:#EF4444;padding:5px 14px;border-radius:20px;font-size:11px;font-weight:900;border:1px solid rgba(239,68,68,0.2);">0
+                                                    Failed</span>
+                                                <button onclick="clearAuditLog()"
+                                                    style="background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.2);color:#EF4444;padding:7px 14px;border-radius:10px;cursor:pointer;font-size:11px;font-weight:800;"><i
+                                                        class="fas fa-trash"></i></button>
+                                            </div>
+                                        </div>
+                                        <div class="table-container">
+                                            <table>
+                                                <thead>
+                                                    <tr>
+                                                        <th>Timestamp</th>
+                                                        <th>Event</th>
+                                                        <th>Status</th>
+                                                        <th>User Agent</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="audit-log-list"></tbody>
+                                            </table>
+                                            <div id="no-audit-info"
+                                                style="text-align:center;padding:30px;color:var(--text-muted);font-size:13px;display:none;">
+                                                <i class="fas fa-check-shield"
+                                                    style="color:#10B981;display:block;font-size:24px;margin-bottom:8px;"></i>No
+                                                login events logged yet.</div>
+                                        </div>
+                                    </div>
+
+                                    <!-- ═══ TWO COLUMN: SECURITY + MAINTENANCE ═══ -->
+                                    <div
+                                        style="display:grid;grid-template-columns:1fr 1fr;gap:25px;margin-bottom:25px;">
+
+                                        <!-- Security Settings -->
+                                        <div class="stat-card"
+                                            style="flex-direction:column;align-items:stretch;padding:30px;">
+                                            <div style="display:flex;align-items:center;gap:12px;margin-bottom:25px;">
+                                                <div
+                                                    style="width:40px;height:40px;background:rgba(139,92,246,0.15);border-radius:12px;display:flex;align-items:center;justify-content:center;">
+                                                    <i class="fas fa-lock" style="color:#8B5CF6;font-size:18px;"></i>
+                                                </div>
+                                                <h3 style="margin:0;font-size:17px;font-weight:800;">Security Settings
+                                                </h3>
+                                            </div>
+                                            <div
+                                                style="background:rgba(0,0,0,0.2);border-radius:15px;padding:20px;margin-bottom:18px;border:1px solid var(--glass-border);">
+                                                <div
+                                                    style="font-size:11px;font-weight:900;color:#8B5CF6;text-transform:uppercase;letter-spacing:1px;margin-bottom:15px;">
+                                                    Change Admin Password</div>
+                                                <input type="password" id="sec-current-pw"
+                                                    placeholder="Current password"
+                                                    style="width:100%;padding:12px;background:var(--input-bg);border:1px solid var(--glass-border);border-radius:10px;color:var(--input-text);margin-bottom:10px;font-size:13px;">
+                                                <input type="password" id="sec-new-pw" placeholder="New password"
+                                                    style="width:100%;padding:12px;background:var(--input-bg);border:1px solid var(--glass-border);border-radius:10px;color:var(--input-text);margin-bottom:10px;font-size:13px;">
+                                                <input type="password" id="sec-confirm-pw"
+                                                    placeholder="Confirm new password"
+                                                    style="width:100%;padding:12px;background:var(--input-bg);border:1px solid var(--glass-border);border-radius:10px;color:var(--input-text);margin-bottom:15px;font-size:13px;">
+                                                <button onclick="changeAdminPassword()"
+                                                    style="width:100%;padding:12px;background:linear-gradient(135deg,#8B5CF6,#7C3AED);border:none;border-radius:10px;color:white;font-weight:800;font-size:13px;cursor:pointer;"><i
+                                                        class="fas fa-key"></i> Update Password</button>
+                                                <p id="pw-change-msg"
+                                                    style="font-size:12px;margin-top:10px;display:none;"></p>
+                                            </div>
+                                            <div
+                                                style="background:rgba(239,68,68,0.05);border-radius:15px;padding:18px;border:1px solid rgba(239,68,68,0.2);">
+                                                <div
+                                                    style="font-size:11px;font-weight:900;color:#EF4444;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;">
+                                                    Failed Login Attempts</div>
+                                                <div id="failed-attempts-display"
+                                                    style="font-size:28px;font-weight:900;color:#EF4444;">0</div>
+                                                <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">
+                                                    Total failed attempts recorded</div>
+                                                <button onclick="clearFailedAttempts()"
+                                                    style="margin-top:12px;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.2);color:#EF4444;padding:8px 18px;border-radius:8px;cursor:pointer;font-size:11px;font-weight:800;">Clear
+                                                    Record</button>
+                                            </div>
+                                        </div>
+
+                                        <!-- Maintenance Mode -->
+                                        <div class="stat-card"
+                                            style="flex-direction:column;align-items:stretch;padding:30px;">
+                                            <div style="display:flex;align-items:center;gap:12px;margin-bottom:25px;">
+                                                <div
+                                                    style="width:40px;height:40px;background:rgba(239,68,68,0.15);border-radius:12px;display:flex;align-items:center;justify-content:center;">
+                                                    <i class="fas fa-hard-hat"
+                                                        style="color:#EF4444;font-size:18px;"></i></div>
+                                                <h3 style="margin:0;font-size:17px;font-weight:800;">Maintenance Mode
+                                                </h3>
+                                            </div>
+                                            <div id="maintenance-status-card"
+                                                style="background:rgba(16,185,129,0.08);border:2px solid rgba(16,185,129,0.3);border-radius:18px;padding:25px;text-align:center;margin-bottom:20px;">
+                                                <div id="maintenance-icon" style="font-size:36px;margin-bottom:12px;">✅
+                                                </div>
+                                                <div id="maintenance-label"
+                                                    style="font-size:18px;font-weight:900;color:#10B981;">SITE ONLINE
+                                                </div>
+                                                <div style="font-size:12px;color:var(--text-muted);margin-top:5px;">
+                                                    Website is live and accessible</div>
+                                            </div>
+                                            <button id="maintenance-toggle-btn" onclick="toggleMaintenanceMode()"
+                                                style="width:100%;padding:16px;background:linear-gradient(135deg,#EF4444,#DC2626);border:none;border-radius:14px;color:white;font-weight:900;font-size:14px;cursor:pointer;transition:all 0.3s;">
+                                                <i class="fas fa-hard-hat"></i> ENABLE MAINTENANCE MODE
+                                            </button>
+                                            <div
+                                                style="background:rgba(0,0,0,0.2);border-radius:12px;padding:15px;margin-top:15px;">
+                                                <div
+                                                    style="font-size:11px;font-weight:800;color:var(--text-muted);margin-bottom:8px;">
+                                                    Custom Maintenance Message</div>
+                                                <textarea id="maintenance-message" rows="3"
+                                                    placeholder="We'll be back soon! Scheduled maintenance in progress."
+                                                    style="width:100%;background:var(--input-bg);border:1px solid var(--glass-border);border-radius:8px;color:var(--input-text);padding:10px;font-size:12px;resize:none;"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- ═══ DEV NOTES SCRATCHPAD ═══ -->
+                                    <div class="stat-card"
+                                        style="flex-direction:column;align-items:stretch;padding:30px;margin-bottom:25px;">
+                                        <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;">
+                                            <div
+                                                style="width:40px;height:40px;background:rgba(251,191,36,0.15);border-radius:12px;display:flex;align-items:center;justify-content:center;">
+                                                <i class="fas fa-sticky-note" style="color:#FBBF24;font-size:18px;"></i>
+                                            </div>
+                                            <div>
+                                                <h3 style="margin:0;font-size:17px;font-weight:800;">Developer
+                                                    Scratchpad</h3>
+                                                <p style="margin:3px 0 0;font-size:12px;color:var(--text-muted);">Saved
+                                                    to Firebase — accessible from any device</p>
+                                            </div>
+                                            <button onclick="saveDevNotes()"
+                                                style="margin-left:auto;background:linear-gradient(135deg,#FBBF24,#F59E0B);border:none;color:#1a1a1a;padding:10px 22px;border-radius:12px;cursor:pointer;font-size:12px;font-weight:900;"><i
+                                                    class="fas fa-save"></i> Save Notes</button>
+                                        </div>
+                                        <textarea id="dev-notes-area" rows="8"
+                                            placeholder="Write your dev notes here... (TODOs, ideas, reminders, credentials hints)"
+                                            style="width:100%;background:rgba(0,0,0,0.25);border:1px solid var(--glass-border);border-radius:15px;color:var(--input-text);padding:20px;font-family:'Consolas','Monaco',monospace;font-size:13px;line-height:1.7;resize:vertical;transition:border 0.3s;"></textarea>
+                                        <div id="notes-save-status"
+                                            style="font-size:12px;color:var(--text-muted);margin-top:10px;text-align:right;">
+                                        </div>
+                                    </div>
+
+                                    <!-- ═══ FIREBASE USAGE MONITOR ═══ -->
+                                    <div class="stat-card"
+                                        style="flex-direction:column;align-items:stretch;padding:30px;margin-bottom:25px;">
+                                        <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;">
+                                            <div
+                                                style="width:40px;height:40px;background:rgba(245,158,11,0.15);border-radius:12px;display:flex;align-items:center;justify-content:center;">
+                                                <i class="fas fa-database" style="color:#F59E0B;font-size:18px;"></i>
+                                            </div>
+                                            <h3 style="margin:0;font-size:17px;font-weight:800;">Firebase Usage Monitor
+                                            </h3>
+                                            <button onclick="refreshFirebaseStats()"
+                                                style="margin-left:auto;background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.3);color:#F59E0B;padding:8px 18px;border-radius:10px;cursor:pointer;font-size:12px;font-weight:800;"><i
+                                                    class="fas fa-sync-alt"></i> Refresh</button>
+                                        </div>
+                                        <div
+                                            style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:15px;">
+                                            <div
+                                                style="background:rgba(0,0,0,0.2);border-radius:14px;padding:20px;border:1px solid var(--glass-border);text-align:center;">
+                                                <i class="fas fa-users"
+                                                    style="color:#10B981;font-size:24px;margin-bottom:10px;display:block;"></i>
+                                                <div id="fb-stat-submissions"
+                                                    style="font-size:24px;font-weight:900;color:#10B981;">—</div>
+                                                <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">Form
+                                                    Submissions</div>
+                                            </div>
+                                            <div
+                                                style="background:rgba(0,0,0,0.2);border-radius:14px;padding:20px;border:1px solid var(--glass-border);text-align:center;">
+                                                <i class="fas fa-calendar-check"
+                                                    style="color:#2563EB;font-size:24px;margin-bottom:10px;display:block;"></i>
+                                                <div id="fb-stat-bookings"
+                                                    style="font-size:24px;font-weight:900;color:#2563EB;">—</div>
+                                                <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">
+                                                    Total Bookings</div>
+                                            </div>
+                                            <div
+                                                style="background:rgba(0,0,0,0.2);border-radius:14px;padding:20px;border:1px solid var(--glass-border);text-align:center;">
+                                                <i class="fas fa-bug"
+                                                    style="color:#EF4444;font-size:24px;margin-bottom:10px;display:block;"></i>
+                                                <div id="fb-stat-bugs"
+                                                    style="font-size:24px;font-weight:900;color:#EF4444;">—</div>
+                                                <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">Bug
+                                                    Reports</div>
+                                            </div>
+                                            <div
+                                                style="background:rgba(0,0,0,0.2);border-radius:14px;padding:20px;border:1px solid var(--glass-border);text-align:center;">
+                                                <i class="fas fa-code-branch"
+                                                    style="color:#8B5CF6;font-size:24px;margin-bottom:10px;display:block;"></i>
+                                                <div id="fb-stat-changes"
+                                                    style="font-size:24px;font-weight:900;color:#8B5CF6;">—</div>
+                                                <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">
+                                                    Change Logs</div>
+                                            </div>
+                                            <div
+                                                style="background:rgba(0,0,0,0.2);border-radius:14px;padding:20px;border:1px solid var(--glass-border);text-align:center;">
+                                                <i class="fas fa-stream"
+                                                    style="color:#FBBF24;font-size:24px;margin-bottom:10px;display:block;"></i>
+                                                <div id="fb-stat-logs"
+                                                    style="font-size:24px;font-weight:900;color:#FBBF24;">—</div>
+                                                <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">
+                                                    System Logs</div>
+                                            </div>
+                                            <div
+                                                style="background:rgba(0,0,0,0.2);border-radius:14px;padding:20px;border:1px solid var(--glass-border);text-align:center;">
+                                                <i class="fas fa-user-clock"
+                                                    style="color:#10B981;font-size:24px;margin-bottom:10px;display:block;"></i>
+                                                <div id="fb-stat-staff"
+                                                    style="font-size:24px;font-weight:900;color:#10B981;">—</div>
+                                                <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">
+                                                    Staff Registered</div>
+                                            </div>
+                                    </div>
+                                </div> <!-- Close dev-console-content -->
+                            </div> <!-- Close developer-section -->
+                        </div> <!-- Close container-fluid -->
+                    </main>
+                </div> <!-- Close admin-layout -->
+            </div> <!-- Close admin-panel -->
     <div class="actions-section">
         <div class="action-list"><a href="https://formspree.io/forms/mbdaqjyv/submissions" target="_blank"
                 class="action-item"><i class="fas fa-inbox"></i><span>Formspree Dashboard (Email
@@ -2411,7 +2664,7 @@
                 } else {
                     document.getElementById('dev-password-gate').style.display = 'flex';
                     document.getElementById('dev-console-content').style.display = 'none';
-                    setTimeout(() => { const i = document.getElementById('dev-pw-input'); if(i) i.focus(); }, 100);
+                    setTimeout(() => { const i = document.getElementById('dev-pw-input'); if (i) i.focus(); }, 100);
                 }
             }
 
@@ -2876,13 +3129,6 @@
             }
         });
 
-        // Developer Section Functions
-        function loadDeveloperData() {
-            if (!window.firebaseDB) return;
-            loadSystemLogs();
-            loadBugReports();
-            loadChangeLogs();
-        }
 
         function switchDevTab(pane) {
             document.getElementById('dev-pane-bugs').style.display = pane === 'bugs' ? 'block' : 'none';
@@ -3057,8 +3303,8 @@
                 const failedDisplay = document.getElementById('failed-attempts-display');
                 if (!list) return;
                 list.innerHTML = '';
-                if (!data) { if(noInfo) noInfo.style.display = 'block'; return; }
-                if(noInfo) noInfo.style.display = 'none';
+                if (!data) { if (noInfo) noInfo.style.display = 'block'; return; }
+                if (noInfo) noInfo.style.display = 'none';
                 const entries = Object.entries(data).reverse().slice(0, 50);
                 let failedCount = 0;
                 entries.forEach(([key, log]) => {
@@ -3073,8 +3319,8 @@
                         <td style="padding:12px 15px;font-size:11px;color:#64748b;max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${log.userAgent}</td>`;
                     list.appendChild(tr);
                 });
-                if(badge) badge.innerText = `${failedCount} Failed`;
-                if(failedDisplay) failedDisplay.innerText = failedCount;
+                if (badge) badge.innerText = `${failedCount} Failed`;
+                if (failedDisplay) failedDisplay.innerText = failedCount;
             });
         }
 
@@ -3216,14 +3462,14 @@
                 icon.innerText = '🚧';
                 label.style.color = '#EF4444';
                 label.innerText = 'MAINTENANCE MODE ON';
-                if(btn) { btn.style.background = 'linear-gradient(135deg,#10B981,#059669)'; btn.innerHTML = '<i class="fas fa-check-circle"></i> DISABLE MAINTENANCE'; }
+                if (btn) { btn.style.background = 'linear-gradient(135deg,#10B981,#059669)'; btn.innerHTML = '<i class="fas fa-check-circle"></i> DISABLE MAINTENANCE'; }
             } else {
                 card.style.background = 'rgba(16,185,129,0.08)';
                 card.style.borderColor = 'rgba(16,185,129,0.3)';
                 icon.innerText = '✅';
                 label.style.color = '#10B981';
                 label.innerText = 'SITE ONLINE';
-                if(btn) { btn.style.background = 'linear-gradient(135deg,#EF4444,#DC2626)'; btn.innerHTML = '<i class="fas fa-hard-hat"></i> ENABLE MAINTENANCE MODE'; }
+                if (btn) { btn.style.background = 'linear-gradient(135deg,#EF4444,#DC2626)'; btn.innerHTML = '<i class="fas fa-hard-hat"></i> ENABLE MAINTENANCE MODE'; }
             }
         }
 
@@ -3248,7 +3494,7 @@
 
             // Save to Firebase for reference (admin is notified)
             if (window.firebaseDB) {
-                window.firebaseSet(window.firebaseRef(window.firebaseDB, 'dinepro/settings/adminPasswordHint'), newPw.substring(0,3) + '***');
+                window.firebaseSet(window.firebaseRef(window.firebaseDB, 'dinepro/settings/adminPasswordHint'), newPw.substring(0, 3) + '***');
                 window.logEvent(`Admin password changed`, 'warning');
             }
             msg.style.color = '#10B981';
@@ -3264,7 +3510,7 @@
             const notes = document.getElementById('dev-notes-area').value;
             const statusEl = document.getElementById('notes-save-status');
             window.firebaseSet(window.firebaseRef(window.firebaseDB, 'dinepro/devNotes'), { content: notes, savedAt: Date.now() });
-            if(statusEl) { statusEl.style.color = '#10B981'; statusEl.innerText = `✅ Saved at ${new Date().toLocaleTimeString()}`; }
+            if (statusEl) { statusEl.style.color = '#10B981'; statusEl.innerText = `✅ Saved at ${new Date().toLocaleTimeString()}`; }
             showToast('Dev notes saved!', 'fas fa-save');
         }
 
@@ -3276,7 +3522,7 @@
                 const statusEl = document.getElementById('notes-save-status');
                 if (data && area) {
                     area.value = data.content || '';
-                    if(statusEl) statusEl.innerText = `Last saved: ${new Date(data.savedAt).toLocaleString()}`;
+                    if (statusEl) statusEl.innerText = `Last saved: ${new Date(data.savedAt).toLocaleString()}`;
                 }
             }, { onlyOnce: true });
         }
@@ -3326,7 +3572,7 @@
 
         // ═══ PATCH LOGIN TO LOG AUDIT ═══
         const _origCheckPassword = checkPassword;
-        window.checkPassword = function() {
+        window.checkPassword = function () {
             const val = document.getElementById('password')?.value;
             const isCorrect = val === 'dinepro2026';
             if (window.firebaseDB && window.firebasePush) {
